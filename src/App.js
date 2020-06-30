@@ -1,26 +1,75 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Profile} from './Profile';
+import {About} from './About';
+import {Home} from './Home';
+import {Map} from './Map';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const PAGES = {
+  home: <Home />,
+  about: <About />,
+  profile: <Profile />,
+  map: <Map />,
+};
+
+class App extends React.Component {
+  state = { currentPage: "home" };
+
+  navigateTo = (page) => {
+    this.setState({ currentPage: page });
+  };
+
+  render() {
+    return (
+      <>
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <button
+                  onClick={() => {
+                    this.navigateTo("home");
+                  }}
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    this.navigateTo("about");
+                  }}
+                >
+                  About
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    this.navigateTo("profile");
+                  }}
+                >
+                  Profile
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    this.navigateTo("map");
+                  }}
+                >
+                  Map
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main>
+          <section>{PAGES[this.state.currentPage]}</section>
+        </main>
+      </>
+    );
+  }
 }
 
 export default App;
+
