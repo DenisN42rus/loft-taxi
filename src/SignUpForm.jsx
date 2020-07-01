@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SignUpForm extends React.Component {
+export class SignUpForm extends React.Component {
 	state = {
 		email: "",
 		name: "",
@@ -10,6 +10,9 @@ class SignUpForm extends React.Component {
 
 	handleSubmit = event => {
     event.preventDefault();
+
+    const { navigateTo } = this.props;
+    navigateTo('map');
   };
 
   handleChange = event => {
@@ -61,5 +64,3 @@ class SignUpForm extends React.Component {
     );
   }
 }
-
-export default SignUpForm;

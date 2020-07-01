@@ -5,10 +5,10 @@ import {Home} from './Home';
 import {Map} from './Map';
 
 const PAGES = {
-  home: <Home />,
-  about: <About />,
-  profile: <Profile />,
-  map: <Map />,
+  home: Home,
+  about: About,
+  profile: Profile,
+  map: Map,
 };
 
 class App extends React.Component {
@@ -19,6 +19,9 @@ class App extends React.Component {
   };
 
   render() {
+    const { currentPage } = this.state;
+    const Page = PAGES[currentPage];
+
     return (
       <>
         <header>
@@ -64,7 +67,7 @@ class App extends React.Component {
           </nav>
         </header>
         <main>
-          <section>{PAGES[this.state.currentPage]}</section>
+          <Page navigateTo={this.navigateTo} />
         </main>
       </>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class LoginForm extends React.Component {
+export class LoginForm extends React.Component {
 	state = {
 		email: "",
 		password: ""
@@ -8,6 +8,9 @@ class LoginForm extends React.Component {
 
 	handleSubmit = event => {
     event.preventDefault();
+
+    const { navigateTo } = this.props;
+    navigateTo('map');
   };
 
   handleChange = event => {
@@ -41,5 +44,3 @@ class LoginForm extends React.Component {
     );
   }
 }
-
-export default LoginForm;

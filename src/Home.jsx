@@ -1,20 +1,25 @@
 import React from "react";
-import LoginForm from "./LoginForm";
-import SignUpForm from "./SignUpForm";
+import {LoginForm} from "./LoginForm";
+import {SignUpForm} from "./SignUpForm";
 
 const FORMS = {
-	login: <LoginForm />,
-	signUp: <SignUpForm />
+	login: LoginForm,
+	signUp: SignUpForm
 }
 
 class Home extends React.Component {
 	state = { currentForm: "signUp" };
+
 
   navigateTo = (form) => {
     this.setState({ currentForm: form });
   };
 
   render() {
+
+	  const { navigateTo } = this.props;
+	  const { currentForm } = this.state;
+    const Form = FORMS[currentForm];
 	  return (
 	    <>
 	    	<ul>
@@ -38,7 +43,7 @@ class Home extends React.Component {
 	    		</li>
 	    	</ul>
 	    	<section>
-	    		{FORMS[this.state.currentForm]}
+	    		<Form navigateTo={navigateTo} />
 	    	</section>
 	    </>
 	  );
