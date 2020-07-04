@@ -1,12 +1,10 @@
 import React from 'react';
 import {Profile} from './Profile';
-import {About} from './About';
 import {Home} from './Home';
 import {Map} from './Map';
 
 const PAGES = {
   home: Home,
-  about: About,
   profile: Profile,
   map: Map,
 };
@@ -34,15 +32,6 @@ class App extends React.Component {
                   }}
                 >
                   Home
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    this.navigateTo("about");
-                  }}
-                >
-                  About
                 </button>
               </li>
               <li>
