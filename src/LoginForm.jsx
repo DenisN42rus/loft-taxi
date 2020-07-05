@@ -1,4 +1,5 @@
 import React from 'react';
+import {PropTypes} from "prop-types";
 
 export class LoginForm extends React.Component {
 	state = {
@@ -6,11 +7,20 @@ export class LoginForm extends React.Component {
 		password: ""
 	};
 
+  static propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    logIn: PropTypes.func.isRequired,
+    logOut: PropTypes.func,
+    navigate: PropTypes.func.isRequired
+  }
+
 	handleSubmit = event => {
     event.preventDefault();
-
-    const { navigateTo } = this.props;
-    navigateTo('map');
+    
+    this.props.logIn(this.state.email, this.state.password)
+    setTimeout(() => {
+      this.props.navigate("map")
+    }, 0)
   };
 
   handleChange = event => {
@@ -33,7 +43,7 @@ export class LoginForm extends React.Component {
         <label>
           Password:
           <input
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={this.handleChange}

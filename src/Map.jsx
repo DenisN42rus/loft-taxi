@@ -1,9 +1,14 @@
-import React from 'react'
-import mapbox from 'mapbox-gl'
+import React from 'react';
+import mapbox from 'mapbox-gl';
+import {PropTypes} from "prop-types";
 
 export class Map extends React.Component {
 	map = null;
 	mapContainer = React.createRef();
+
+	static propTypes = {
+		navigate: PropTypes.func
+	}
 
 	componentDidMount() {
 		mapbox.accessToken = 'pk.eyJ1IjoiZGVuaXM0MnJ1cyIsImEiOiJja2M3NTdwZGowbHc0MnNsam9tdDNqZDY5In0.wXHr0hYqtxBIIs35Y1cx-g'

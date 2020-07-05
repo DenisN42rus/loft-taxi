@@ -1,19 +1,24 @@
 import React from 'react';
-import {Profile} from './Profile';
-import {Home} from './Home';
+import {ProfileWithAuth} from './Profile';
+import {HomeWithAuth} from './Home';
 import {Map} from './Map';
+import {withAuth} from './AuthContext';
 
 const PAGES = {
-  home: Home,
-  profile: Profile,
-  map: Map,
+  home: (props) => <HomeWithAuth {...props}/>,
+  profile: (props) => <ProfileWithAuth {...props}/>,
+  map: (props) => <Map {...props}/>,
 };
 
 class App extends React.Component {
   state = { currentPage: "home" };
 
   navigateTo = (page) => {
-    this.setState({ currentPage: page });
+    if (this.props.isLoggedIn) {
+      this.setState({ currentPage: page });
+    } else {
+      this.setState({ currentPage: 'home' });
+    }
   };
 
   render() {
@@ -56,12 +61,12 @@ class App extends React.Component {
           </nav>
         </header>
         <main>
-          <Page navigateTo={this.navigateTo} />
+          <Page navigate={this.navigateTo}/>
         </main>
       </>
     );
   }
 }
 
-export default App;
+export default withAuth(App);
 
