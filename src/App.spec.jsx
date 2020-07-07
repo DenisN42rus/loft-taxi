@@ -15,24 +15,35 @@ describe("App", () => {
 })
 
 describe("When clicked on navigation buttons", () => {
-	it("opens the Map page", () => {
-		const {getByText, container} = render(<App isLoggedIn={true}/>)
+	describe("isLoggedIn = true", () => {
+		it("opens the Map page", () => {
+			const {getByText, container} = render(<App isLoggedIn={true}/>)
 
-		fireEvent.click(getByText('Map'))
-		expect(container.innerHTML).toMatch("Map component")
+			fireEvent.click(getByText('Map'))
+			expect(container.innerHTML).toMatch("Map component")
+		})
+
+		it("opens the Profile page", () => {
+			const {getByText, container} = render(<App isLoggedIn={true}/>)
+
+			fireEvent.click(getByText('Profile'))
+			expect(container.innerHTML).toMatch("Profile component")
+		})
+
+		it("opens the Hoem page", () => {
+			const {getByText, container} = render(<App isLoggedIn={true}/>)
+
+			fireEvent.click(getByText('Home'))
+			expect(container.innerHTML).toMatch("Home component")
+		})
 	})
 
-	it("opens the Profile page", () => {
-		const {getByText, container} = render(<App isLoggedIn={true}/>)
+	describe("isLoggedIn = false", () => {
+		it("opens the Home page", () => {
+			const {getByText, container} = render(<App isLoggedIn={false}/>)
 
-		fireEvent.click(getByText('Profile'))
-		expect(container.innerHTML).toMatch("Profile component")
-	})
-
-	it("opens the Hoem page", () => {
-		const {getByText, container} = render(<App isLoggedIn={true}/>)
-
-		fireEvent.click(getByText('Home'))
-		expect(container.innerHTML).toMatch("Home component")
+			fireEvent.click(getByText('Map'))
+			expect(container.innerHTML).toMatch("Home component")
+		})
 	})
 })
