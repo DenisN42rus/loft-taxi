@@ -2,22 +2,27 @@ import React from 'react'
 import {withAuth} from './AuthContext';
 import {PropTypes} from "prop-types";
 
-export class Profile extends React.Component {
-	static propTypes = {
+export function Profile(props) {
+	const unauthenticate = () => {
+		props.logOut();
+		props.navigate("home");
+	}
+
+	return <p>Profile 
+						<button 
+						data-testid="logOut" 
+						onClick={unauthenticate}
+						>
+						Log out
+						</button>
+					</p>
+}
+
+Profile.propTypes = {
 		isLoggedIn: PropTypes.bool,
 		logIn: PropTypes.func,
 		logOut: PropTypes.func.isRequired,
 		navigate: PropTypes.func.isRequired
 	}
-
-	unauthenticate = () => {
-		
-		this.props.logOut();
-		this.props.navigate("home");
-	}
-	render() {
-		return <p> Profile <button data-testid="logOut" onClick={this.unauthenticate}>Log out</button></p>
-	}
-}
 
 export const ProfileWithAuth = withAuth(Profile)
