@@ -21,49 +21,49 @@ function App(props) {
     }
   };
 
-    const Page = PAGES[currentPage];
+  const Page = PAGES[currentPage];
 
-    return (
-      <>
-        <header>
-          <nav>
-            <ul>
-              <li>
-                <button
-                  onClick={() => {
-                    navigateTo("home");
-                  }}
-                >
-                  Home
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigateTo("profile");
-                  }}
-                >
-                  Profile
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    navigateTo("map");
-                  }}
-                >
-                  Map
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <main>
-          <Page navigate={navigateTo}/>
-        </main>
-      </>
-    );
-  }
+  return (
+    <>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <button
+                onClick={() => {
+                  navigateTo("home");
+                }}
+              >
+                Home
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  navigateTo("profile");
+                }}
+              >
+                Profile
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  navigateTo("map");
+                }}
+              >
+                Map
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <Page navigate={navigateTo}/>
+      </main>
+    </>
+  );
+}
 
 export {App};
 export default withAuth(App);
