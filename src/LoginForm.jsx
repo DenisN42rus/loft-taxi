@@ -26,6 +26,7 @@ export function LoginForm(props) {
           type="text"
           name="email"
           data-testid="email"
+          placeholder="email"
           value={email}
           onChange={handleChange}
         />
@@ -36,6 +37,7 @@ export function LoginForm(props) {
           type="password"
           name="password"
           data-testid="password"
+          placeholder="password"
           value={password}
           onChange={handleChange}
         />

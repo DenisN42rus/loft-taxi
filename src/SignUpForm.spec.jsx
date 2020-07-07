@@ -1,9 +1,9 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {LoginForm} from "./LoginForm";
+import {SignUpForm} from "./SignUpForm";
 import "@testing-library/jest-dom/extend-expect";
 
-describe("LoginForm", () => {
+describe("SignUpForm", () => {
 	it("renders correctly", () => {
 		const props = {
 			logIn: () => {},
@@ -11,11 +11,12 @@ describe("LoginForm", () => {
 			isLoggedIn: false
 		}
 
-		const {getByTestId, getByLabelText} = render(<LoginForm {...props}/>)
+		const {getByLabelText} = render(<SignUpForm {...props}/>)
 
-		expect(getByTestId("form")).toBeInTheDocument()
 		expect(getByLabelText('Email:')).toHaveAttribute('name', 'email')
 		expect(getByLabelText('Password:')).toHaveAttribute('name', 'password')
+		expect(getByLabelText('Name:')).toHaveAttribute('name', 'name')
+		expect(getByLabelText('LastName:')).toHaveAttribute('name', 'lastName')
 	})
 })
 
@@ -26,9 +27,9 @@ describe("When changed input", () => {
 			navigate: () => {},
 			isLoggedIn: false
 		}
-		const {getByTestId} = render(<LoginForm {...props}/>)
-		const email = getByTestId("email");
-		const password = getByTestId("password");
+		const {getByPlaceholderText } = render(<SignUpForm {...props}/>)
+		const email = getByPlaceholderText ("email");
+		const password = getByPlaceholderText ("password");
 
 		fireEvent.change(email, {target: {value: "test"}})
 		expect(email.value).toBe("test")
@@ -46,13 +47,10 @@ describe("When clicked on submit button", () => {
 		}
 
 		const handleSubmit = jest.fn();
-		const {getByTestId} = render(<LoginForm {...props} handleSubmit={handleSubmit}/>)
+		const {getByTestId} = render(<SignUpForm {...props} handleSubmit={handleSubmit}/>)
 		const submit = getByTestId("submit");
 
-		fireEvent.click(submit)
-		expect(props.logIn).toHaveBeenCalled();
-		setTimeout(() => {
-      expect(props.navigate).toHaveBeenCalled();
-    }, 0)
+		fireEvent.click(submit);
+    expect(props.navigate).toHaveBeenCalled();
 	})
 })
