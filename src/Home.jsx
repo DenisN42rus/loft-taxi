@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {LoginForm} from "./LoginForm";
 import {SignUpForm} from "./SignUpForm";
 import {withAuth} from './AuthContext';
@@ -9,67 +9,66 @@ const FORMS = {
 	signUp: SignUpForm
 }
 
-export class Home extends React.Component {
-	state = { currentForm: "signUp" };
+export function Home(props) {
+	const [currentForm, setCurrentForm] = useState("signUp");
 
-	static propTypes = {
-		isLoggedIn: PropTypes.bool.isRequired,
-		logIn: PropTypes.func.isRequired,
-		logOut: PropTypes.func.isRequired,
-		navigate: PropTypes.func.isRequired
+	const goToProfile = () => {
+		props.navigate("profile")
 	}
 
-	goToProfile = () => {
-		this.props.navigate("profile")
-	}
-
-  navigateTo = (form) => {
-    this.setState({ currentForm: form });
+  const navigateTo = (form) => {
+    setCurrentForm(form);
   };
 
-  render() {
-
-	  const { currentForm } = this.state;
-    const Form = FORMS[currentForm];
-	  return (
-  		<>
-				{this.props.isLoggedIn ? (
-	  			<p>
-	  				You are logged in
-	  				<button onClick={this.goToProfile}>Go to profile</button>
-	  			</p>
-				) : (
-  		<>
-  			<ul>
-					<li>
-					  <button
-					    onClick={() => {
-					      this.navigateTo("login");
-					    }}
-					  >
-					    LoginForm
-					  </button>
-					</li>
-					<li>
-					  <button
-					    onClick={() => {
-					      this.navigateTo("signUp");
-					    }}
-					  >
-					    SignUpForm
-					  </button>
-					</li>
-				</ul>
-				<section>
-					<Form {...this.props} />
-				</section>
-  		</>
- 			 )}
-  		</>
-	  );
-  }
-  
+  const Form = FORMS[currentForm];
+	  
+  return (
+		<>
+			{props.isLoggedIn ? (
+  			<p>
+  				You are logged in
+  				<button 
+	  				onClick={goToProfile}
+	  				>
+	  				Go to profile
+  				</button>
+  			</p>
+			) : (
+		<>
+			<ul>
+				<li>
+				  <button
+				    onClick={() => {
+				      navigateTo("login");
+				    }}
+				  >
+				    LoginForm
+				  </button>
+				</li>
+				<li>
+				  <button
+				    onClick={() => {
+				      navigateTo("signUp");
+				    }}
+				  >
+				    SignUpForm
+				  </button>
+				</li>
+			</ul>
+			<section>
+				<Form {...props} />
+			</section>
+		</>
+			 )}
+		</>
+  );
 };
 
+Home.propTypes = {
+			isLoggedIn: PropTypes.bool.isRequired,
+			logIn: PropTypes.func.isRequired,
+			logOut: PropTypes.func.isRequired,
+			navigate: PropTypes.func.isRequired
+		}
 
 export const HomeWithAuth = withAuth(Home)
