@@ -16,7 +16,7 @@ export class Profile extends React.Component {
 		this.props.navigate("home");
 	}
 	render() {
-		return <p> Profile <button onClick={this.unauthenticate}>Log out</button></p>
+		return <p> Profile <button data-testid="logOut" onClick={this.unauthenticate}>Log out</button></p>
 	}
 }
 

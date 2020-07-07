@@ -26,8 +26,8 @@ export class Map extends React.Component {
 	}
 
 	render() {
-		return <div className="map-wrapper">
-			<div className="map" ref={this.mapContainer}></div>
+		return <div data-testid="map-wrapper" className="map-wrapper">
+			<div data-testid="map" className="map" ref={this.mapContainer}></div>
 		</div>
 	}
 }

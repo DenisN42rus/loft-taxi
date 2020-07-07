@@ -30,12 +30,13 @@ export class LoginForm extends React.Component {
   render () {
   	const { email, password } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form data-testid="form" onSubmit={this.handleSubmit}>
         <label>
           Email:
           <input
             type="text"
             name="email"
+            data-testid="email"
             value={email}
             onChange={this.handleChange}
           />
@@ -45,11 +46,12 @@ export class LoginForm extends React.Component {
           <input
             type="password"
             name="password"
+            data-testid="password"
             value={password}
             onChange={this.handleChange}
           />
         </label>
-        <input type="submit" value="Submit" />
+        <input data-testid="submit" type="submit" value="Submit" />
       </form>
     );
   }

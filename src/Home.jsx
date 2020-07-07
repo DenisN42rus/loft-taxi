@@ -9,7 +9,7 @@ const FORMS = {
 	signUp: SignUpForm
 }
 
-class Home extends React.Component {
+export class Home extends React.Component {
 	state = { currentForm: "signUp" };
 
 	static propTypes = {
@@ -71,5 +71,5 @@ class Home extends React.Component {
   
 };
 
-export {Home};
+
 export const HomeWithAuth = withAuth(Home)
