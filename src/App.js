@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ProfileWithAuth} from './Profile';
 import {HomeWithAuth} from './Home';
 import {Map} from './Map';
@@ -10,19 +10,17 @@ const PAGES = {
   map: (props) => <Map {...props}/>,
 };
 
-class App extends React.Component {
-  state = { currentPage: "home" };
+function App(props) {
+  const [currentPage, setCurrentPage] = useState("home");
 
-  navigateTo = (page) => {
-    if (this.props.isLoggedIn) {
-      this.setState({ currentPage: page });
+  const navigateTo = (page) => {
+    if (props.isLoggedIn) {
+      setCurrentPage(page);
     } else {
-      this.setState({ currentPage: 'home' });
+      setCurrentPage("home");
     }
   };
 
-  render() {
-    const { currentPage } = this.state;
     const Page = PAGES[currentPage];
 
     return (
@@ -33,7 +31,7 @@ class App extends React.Component {
               <li>
                 <button
                   onClick={() => {
-                    this.navigateTo("home");
+                    navigateTo("home");
                   }}
                 >
                   Home
@@ -42,7 +40,7 @@ class App extends React.Component {
               <li>
                 <button
                   onClick={() => {
-                    this.navigateTo("profile");
+                    navigateTo("profile");
                   }}
                 >
                   Profile
@@ -51,7 +49,7 @@ class App extends React.Component {
               <li>
                 <button
                   onClick={() => {
-                    this.navigateTo("map");
+                    navigateTo("map");
                   }}
                 >
                   Map
@@ -61,12 +59,11 @@ class App extends React.Component {
           </nav>
         </header>
         <main>
-          <Page navigate={this.navigateTo}/>
+          <Page navigate={navigateTo}/>
         </main>
       </>
     );
   }
-}
 
 export {App};
 export default withAuth(App);
