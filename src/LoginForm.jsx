@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {PropTypes} from "prop-types";
 
 export function LoginForm(props) {
+  console.log(props)
   const [initialState, setInitialState] = useState({email: "", password: ""});
 
 	const handleSubmit = event => {

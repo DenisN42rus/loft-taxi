@@ -1,26 +1,18 @@
-import React, {useState} from "react";
-import {LoginForm} from "./LoginForm";
-import {SignUpForm} from "./SignUpForm";
+import React from "react";
 import {withAuth} from './AuthContext';
 import {PropTypes} from "prop-types";
-
-const FORMS = {
-	login: LoginForm,
-	signUp: SignUpForm
-}
+import {SignUpForm} from './SignUpForm';
+import {LoginForm} from './LoginForm';
+import {Link, Route, Switch} from 'react-router-dom';
+import {routes, RouteWithSubRoutes} from "./routes";
 
 export function Home(props) {
-	const [currentForm, setCurrentForm] = useState("signUp");
+
+	console.log(props)
 
 	const goToProfile = () => {
 		props.navigate("profile")
 	}
-
-  const navigateTo = (form) => {
-    setCurrentForm(form);
-  };
-
-  const Form = FORMS[currentForm];
 	  
   return (
 		<>
@@ -36,28 +28,12 @@ export function Home(props) {
 			) : (
 		<>
 			<ul>
-				<li>
-				  <button
-				    onClick={() => {
-				      navigateTo("login");
-				    }}
-				  >
-				    LoginForm
-				  </button>
-				</li>
-				<li>
-				  <button
-				    onClick={() => {
-				      navigateTo("signUp");
-				    }}
-				  >
-				    SignUpForm
-				  </button>
-				</li>
+				<li><Link to="/Home/LoginForm">LoginForm</Link></li>
+        <li><Link to="/Home/SignUpForm">SignUpForm</Link></li>
 			</ul>
-			<section>
-				<Form {...props} />
-			</section>
+			<div>
+
+			 </div>
 		</>
 			 )}
 		</>
@@ -67,8 +43,7 @@ export function Home(props) {
 Home.propTypes = {
 			isLoggedIn: PropTypes.bool.isRequired,
 			logIn: PropTypes.func.isRequired,
-			logOut: PropTypes.func.isRequired,
-			navigate: PropTypes.func.isRequired
+			logOut: PropTypes.func.isRequired
 		}
 
 export const HomeWithAuth = withAuth(Home)
