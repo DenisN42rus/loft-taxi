@@ -1,5 +1,6 @@
 import React from "react";
 import {PropTypes} from "prop-types";
+import { AppBar, Toolbar } from '@material-ui/core';
 
 export class Header extends React.Component {
 
@@ -15,42 +16,56 @@ export class Header extends React.Component {
 		this.props.navigate("home");
 	}
 
-	render() {		
+	render() {
+    const toolbarStyle = {
+      backgroundColor: "#fff"
+    }
+    const buttonStyle = {
+      border: "none",
+      background: "#fff",
+      borderRadius: "5px",
+      outline: "none"
+    }
 		return (
       <>
-        <header>
-          <nav>
-            <ul>
-              <li>
-                <button
-                  onClick={() => {
-                    this.props.navigate("map");
-                  }}
-                >
-                  Карта
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    this.props.navigate("profile");
-                  }}
-                >
-                  Профиль
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    this.unauthenticate();
-                  }}
-                >
-                  Выйти
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <AppBar elevation={4} style={toolbarStyle} position="static" color="primary">
+          <Toolbar>
+            <nav>
+              <ul>
+                <li>
+                  <button
+                    style={buttonStyle}
+                    onClick={() => {
+                      this.props.navigate("map");
+                    }}
+                  >
+                    Карта
+                  </button>
+                </li>
+                <li>
+                  <button
+                    style={buttonStyle}
+                    onClick={() => {
+                      this.props.navigate("profile");
+                    }}
+                  >
+                    Профиль
+                  </button>
+                </li>
+                <li>
+                  <button
+                    style={buttonStyle}
+                    onClick={() => {
+                      this.unauthenticate();
+                    }}
+                  >
+                    Выйти
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </Toolbar>
+        </AppBar>
       </>
     )
 	}

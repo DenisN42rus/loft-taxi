@@ -3,7 +3,7 @@ import {render, fireEvent} from "@testing-library/react";
 import {LoginForm} from "../components/LoginForm";
 import "@testing-library/jest-dom/extend-expect";
 
-describe("Profile", () => {
+describe("LoginForm", () => {
 	it("renders correctly", () => {
 		const props = {
 			logIn: () => {},
@@ -11,29 +11,11 @@ describe("Profile", () => {
 			isLoggedIn: false
 		}
 
-		const {getByTestId, getByLabelText} = render(<LoginForm {...props}/>)
+		const {getByTestId, getByText} = render(<LoginForm {...props}/>)
 
 		expect(getByTestId("form")).toBeInTheDocument()
-		expect(getByLabelText('Email:')).toHaveAttribute('name', 'email')
-		expect(getByLabelText('Password:')).toHaveAttribute('name', 'password')
-	})
-})
-
-describe("When changed input", () => {
-	it("should change input value", () => {
-		const props = {
-			logIn: () => {},
-			navigate: () => {},
-			isLoggedIn: false
-		}
-		const {getByTestId} = render(<LoginForm {...props}/>)
-		const email = getByTestId("email");
-		const password = getByTestId("password");
-
-		fireEvent.change(email, {target: {value: "test"}})
-		expect(email.value).toBe("test")
-		fireEvent.change(password, {target: {value: "test"}})
-		expect(password.value).toBe("test")
+		expect(getByTestId('email')).toBeInTheDocument()
+		expect(getByTestId('password')).toBeInTheDocument()
 	})
 })
 

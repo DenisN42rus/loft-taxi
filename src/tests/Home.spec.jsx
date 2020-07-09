@@ -20,26 +20,3 @@ describe("Home", () => {
 		expect(container.innerHTML).toMatch("LoginForm component")
 	})
 })
-
-describe("When clicked on navigation buttons", () => {
-	const props = {
-				logIn: () => {},
-				navigate: () => {},
-				logOut: () => {},
-				isLoggedIn: false
-			}
-
-	it("opens the LoginForm", () => {
-		const {getByText, container} = render(<Home {...props}/>)
-
-		fireEvent.click(getByText('LoginForm'))
-		expect(container.innerHTML).toMatch("LoginForm component")
-	})
-
-	it("opens the SignUpForm", () => {
-		const {getByText, container} = render(<Home {...props}/>)
-
-		fireEvent.click(getByText('SignUpForm'))
-		expect(container.innerHTML).toMatch("SignUpForm component")
-	})
-})

@@ -29,30 +29,7 @@ export class Home extends React.Component {
 
 		return (
 			<>
-			  <ul>
-			    <li>
-			      <button
-			        onClick={() => {
-			          this.navigateTo("login");
-			        }}
-			      >
-			        LoginForm
-			      </button>
-			    </li>
-			    <li>
-			      <button
-			        onClick={() => {
-			          this.navigateTo("signUp");
-			        }}
-			      >
-			        SignUpForm
-			      </button>
-			    </li>
-			  </ul>
-
-			  <section>
-			    <Form {...this.props} navigate={this.props.navigate}/>
-			  </section>
+				<Form {...this.props} navigate={this.props.navigate} navigateToForm={this.navigateTo}/>
 			</>
 		)
 	}
