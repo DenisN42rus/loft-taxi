@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ProfileWithAuth} from './Profile';
 import {HomeWithAuth} from './Home';
 import {Map} from './Map';
@@ -11,36 +11,31 @@ const PAGES = {
   map: (props) => <Map {...props}/>,
 };
 
-class App extends React.Component {
-  state = { currentPage: "home" };
+export function App(props) {
+  const [state, setState] = useState({currentPage: "home"})
 
-  navigateToPage = (page) => {
-    if (this.props.isLoggedIn) {
-      this.setState({ currentPage: page });
+  const navigateToPage = (page) => {
+    if (props.isLoggedIn) {
+      setState({currentPage: page});
     } else {
-      this.setState({ currentPage: 'home' });
+      setState({currentPage: 'home'});
     }
   };
 
-  render() {
-
-    const { currentPage } = this.state;
-    const Page = PAGES[currentPage];
-
-    return (
-      <>
-        {this.props.isLoggedIn ? (
-          <>
-            <Header {...this.props} navigate={this.navigateToPage} />
-            <Page navigate={this.navigateToPage}/>
-          </>
-        ) : (
-          <HomeWithAuth {...this.props} navigate={this.navigateToPage}/>
-        )}
-      </>
-    )
-  }
+  const { currentPage } = state;
+  const Page = PAGES[currentPage];
+  return (
+    <>
+      {props.isLoggedIn ? (
+        <>
+          <Header {...props} navigate={navigateToPage} />
+          <Page navigate={navigateToPage}/>
+        </>
+      ) : (
+        <HomeWithAuth {...props} navigate={navigateToPage}/>
+      )}
+    </>
+  )
 }
 
-export {App};
 export default withAuth(App);

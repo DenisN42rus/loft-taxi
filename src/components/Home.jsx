@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {LoginForm} from "./LoginForm";
 import {SignUpForm} from "./SignUpForm";
 import {withAuth} from '../AuthContext';
@@ -9,30 +9,29 @@ const FORMS = {
 	signUp: SignUpForm
 }
 
-export class Home extends React.Component {
-	state = { currentForm: "login" };
+export function Home(props) {
+	const [state, setState] = useState({currentForm: "login"})
+	
 
-	static propTypes = {
+  const navigateTo = (form) => {
+    setState({ currentForm: form });
+  };
+
+	const { currentForm } = state;
+  const Form = FORMS[currentForm];
+
+	return (
+		<>
+			<Form {...props} navigate={props.navigate} navigateToForm={navigateTo}/>
+		</>
+	)
+}
+
+Home.propTypes = {
     isLoggedIn: PropTypes.bool,
     logIn: PropTypes.func,
     logOut: PropTypes.func,
     navigate: PropTypes.func.isRequired
   }
-
-  navigateTo = (form) => {
-    this.setState({ currentForm: form });
-  };
-
-	render() {
-		const { currentForm } = this.state;
-    const Form = FORMS[currentForm];
-
-		return (
-			<>
-				<Form {...this.props} navigate={this.props.navigate} navigateToForm={this.navigateTo}/>
-			</>
-		)
-	}
-}
 
 export const HomeWithAuth = withAuth(Home);
