@@ -1,5 +1,5 @@
 import React from 'react'
-import {withAuth} from './AuthContext';
+import {withAuth} from '../AuthContext';
 import {PropTypes} from "prop-types";
 
 export class Profile extends React.Component {

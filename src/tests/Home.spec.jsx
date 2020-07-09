@@ -1,10 +1,10 @@
 import React from "react";
 import {render, fireEvent} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import {Home} from './Home';
+import {Home} from '../components/Home';
 
-jest.mock('./LoginForm', () => ({LoginForm: () => <div>LoginForm component</div>}))
-jest.mock('./SignUpForm', () => ({SignUpForm: () => <div>SignUpForm component</div>}))
+jest.mock('../components/LoginForm', () => ({LoginForm: () => <div>LoginForm component</div>}))
+jest.mock('../components/SignUpForm', () => ({SignUpForm: () => <div>SignUpForm component</div>}))
 
 describe("Home", () => {
 	const props = {
@@ -13,22 +13,11 @@ describe("Home", () => {
 					logOut: () => {},
 					isLoggedIn: true
 				}
+	it("renders correctly", () => {
+		props.isLoggedIn = false
 
-	describe("with isLoggedIn = true", () => {
-		it("renders correctly", () => {
-
-			const {container, getByText} = render(<Home {...props}/>)
-			 expect(getByText('Go to profile')).toBeTruthy()
-		})
-	})
-
-	describe("with isLoggedIn = false", () => {
-		it("renders correctly", () => {
-			props.isLoggedIn = false
-
-			const {container} = render(<Home {...props}/>)
-			expect(container.innerHTML).toMatch("SignUpForm component")
-		})
+		const {container} = render(<Home {...props}/>)
+		expect(container.innerHTML).toMatch("LoginForm component")
 	})
 })
 

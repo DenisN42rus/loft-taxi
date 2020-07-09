@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {LoginForm} from "./LoginForm";
+import {LoginForm} from "../components/LoginForm";
 import "@testing-library/jest-dom/extend-expect";
 
 describe("Profile", () => {
