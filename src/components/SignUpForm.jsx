@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {PropTypes} from "prop-types";
+import {Link} from 'react-router-dom';
 import { 
   Paper, 
   Grid, 
@@ -21,7 +22,7 @@ export function SignUpForm(props) {
 	const handleSubmit = event => {
     event.preventDefault();
     
-    props.navigate('map');
+    props.history.replace("map")
   };
 
   const handleChange = event => {
@@ -35,13 +36,6 @@ export function SignUpForm(props) {
   const marginBottom = {
     marginBottom: '30px'
   }
-  const buttonStyle = {
-    border: "none",
-    background: "#fff",
-    borderRadius: "5px",
-    outline: "none",
-    color: "#1473e6"
-  }
   return (
     <Grid container={true} alignItems="center" justify="center" style={gridStye}>
       <Grid item xs={3}>
@@ -54,14 +48,7 @@ export function SignUpForm(props) {
           </Typography>
           <Typography align="left">
             Уже зарегистрированы?  
-            <button
-              style={buttonStyle}
-              onClick={() => {
-                props.navigateToForm("login");
-              }}
-            >
-              Войти
-          </button>
+          <Link to="/LoginForm">Войти</Link>
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -141,6 +128,5 @@ export function SignUpForm(props) {
 SignUpForm.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     logIn: PropTypes.func.isRequired,
-    logOut: PropTypes.func,
-    navigate: PropTypes.func.isRequired
+    logOut: PropTypes.func
   }

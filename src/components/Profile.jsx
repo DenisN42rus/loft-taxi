@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 export function Profile(props) {
-
+	
 	const paperStyle = {
 		width: "752px",
 		height: "457px",
@@ -137,8 +137,7 @@ export function Profile(props) {
 Profile.propTypes = {
 	isLoggedIn: PropTypes.bool,
 	logIn: PropTypes.func,
-	logOut: PropTypes.func.isRequired,
-	navigate: PropTypes.func.isRequired
+	logOut: PropTypes.func.isRequired
 }
 
 export const ProfileWithAuth = withAuth(Profile);

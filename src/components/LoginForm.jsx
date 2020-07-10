@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {PropTypes} from "prop-types";
+import {Link} from 'react-router-dom';
 import { 
   Paper, 
   Grid, 
@@ -12,14 +13,12 @@ import {
 
 export function LoginForm(props) {
 	const [state, setState] = useState({email: "", password: ""})
-
+  
 	const handleSubmit = event => {
     event.preventDefault();
     
     props.logIn(state.email, state.password)
-    setTimeout(() => {
-      props.navigate("map")
-    }, 0)
+    props.history.replace("map")
   };
 
   const handleChange = event => {
@@ -33,13 +32,6 @@ export function LoginForm(props) {
   const marginBottom = {
     marginBottom: '30px'
   }
-  const buttonStyle = {
-    border: "none",
-    background: "#fff",
-    borderRadius: "5px",
-    outline: "none",
-    color: "#1473e6"
-  }
   return (
     <Grid container={true} alignItems="center" justify="center" style={gridStye}>
       <Grid item xs={3}>
@@ -52,14 +44,8 @@ export function LoginForm(props) {
           </Typography>
           <Typography align="left">
             Новый пользователь? 
-            <button
-              style={buttonStyle}
-              onClick={() => {
-                props.navigateToForm("signUp");
-              }}
-            >
-              Зарегистрируйтесь
-          </button>
+            
+          <Link to="/SignUpForm">Зарегистрируйтесь</Link>
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -111,6 +97,5 @@ export function LoginForm(props) {
 LoginForm.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     logIn: PropTypes.func.isRequired,
-    logOut: PropTypes.func,
-    navigate: PropTypes.func.isRequired
+    logOut: PropTypes.func
   }

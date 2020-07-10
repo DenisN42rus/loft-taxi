@@ -1,38 +1,29 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ProfileWithAuth} from './Profile';
 import {HomeWithAuth} from './Home';
 import {Map} from './Map';
 import {withAuth} from '../AuthContext';
 import {Header} from "./Header";
-
-const PAGES = {
-  home: (props) => <HomeWithAuth {...props}/>,
-  profile: (props) => <ProfileWithAuth {...props}/>,
-  map: (props) => <Map {...props}/>,
-};
+import {Route, Redirect} from 'react-router-dom';
 
 export function App(props) {
-  const [state, setState] = useState({currentPage: "home"})
-
-  const navigateToPage = (page) => {
-    if (props.isLoggedIn) {
-      setState({currentPage: page});
-    } else {
-      setState({currentPage: 'home'});
-    }
-  };
-
-  const { currentPage } = state;
-  const Page = PAGES[currentPage];
   return (
     <>
       {props.isLoggedIn ? (
         <>
-          <Header {...props} navigate={navigateToPage} />
-          <Page navigate={navigateToPage}/>
+          <Route render={(history) => (
+            <Header {...props} {...history}/>
+          )}/>
+          <Route exac path="/Map" component={Map} />
+          <Route exac path="/Profile" component={ProfileWithAuth} />
         </>
       ) : (
-        <HomeWithAuth {...props} navigate={navigateToPage}/>
+      <>
+        <Redirect from="/" to="/LoginForm" />
+        <Route path='/LoginForm' render={(props) => (
+          <HomeWithAuth {...props}/>
+        )}/>
+      </>
       )}
     </>
   )

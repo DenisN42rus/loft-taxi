@@ -1,28 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import {LoginForm} from "./LoginForm";
 import {SignUpForm} from "./SignUpForm";
 import {withAuth} from '../AuthContext';
 import {PropTypes} from "prop-types";
-
-const FORMS = {
-	login: LoginForm,
-	signUp: SignUpForm
-}
+import {Route, Switch} from 'react-router-dom';
 
 export function Home(props) {
-	const [state, setState] = useState({currentForm: "login"})
-	
-
-  const navigateTo = (form) => {
-    setState({ currentForm: form });
-  };
-
-	const { currentForm } = state;
-  const Form = FORMS[currentForm];
-
 	return (
 		<>
-			<Form {...props} navigate={props.navigate} navigateToForm={navigateTo}/>
+			<Switch>
+				<Route path='/LoginForm' render={() => (
+	          <LoginForm {...props}/>
+	        )}/>
+				<Route path='/SignUpForm' render={() => (
+	          <SignUpForm {...props}/>
+	        )}/>
+			</Switch>
 		</>
 	)
 }
@@ -30,8 +23,7 @@ export function Home(props) {
 Home.propTypes = {
     isLoggedIn: PropTypes.bool,
     logIn: PropTypes.func,
-    logOut: PropTypes.func,
-    navigate: PropTypes.func.isRequired
+    logOut: PropTypes.func
   }
 
 export const HomeWithAuth = withAuth(Home);

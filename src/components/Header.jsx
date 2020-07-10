@@ -1,14 +1,15 @@
 import React from "react";
 import {PropTypes} from "prop-types";
 import { AppBar, Toolbar } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 export function Header(props) {
 
 	const unauthenticate = () => {
 		props.logOut();
-		props.navigate("home");
+		props.history.replace("home")
 	}
-
+  
   const toolbarStyle = {
     backgroundColor: "#fff"
   }
@@ -25,24 +26,10 @@ export function Header(props) {
           <nav>
             <ul>
               <li>
-                <button
-                  style={buttonStyle}
-                  onClick={() => {
-                    props.navigate("map");
-                  }}
-                >
-                  Карта
-                </button>
+                <Link to="/Map">Карта</Link>
               </li>
               <li>
-                <button
-                  style={buttonStyle}
-                  onClick={() => {
-                    props.navigate("profile");
-                  }}
-                >
-                  Профиль
-                </button>
+                <Link to="/Profile">Профиль</Link>
               </li>
               <li>
                 <button
@@ -65,6 +52,5 @@ export function Header(props) {
 Header.propTypes = {
     isLoggedIn: PropTypes.bool,
     logIn: PropTypes.func,
-    logOut: PropTypes.func.isRequired,
-    navigate: PropTypes.func.isRequired
+    logOut: PropTypes.func.isRequired
   }
