@@ -2,8 +2,8 @@ import React from 'react';
 import {ProfileWithAuth} from './Profile';
 import {HomeWithAuth} from './Home';
 import {Map} from './Map';
-import {withAuth} from '../AuthContext';
-import {Header} from "./Header";
+import {connect} from 'react-redux';
+import Header from "./Header";
 import {Route, Redirect} from 'react-router-dom';
 
 export function App(props) {
@@ -29,4 +29,6 @@ export function App(props) {
   )
 }
 
-export default withAuth(App);
+export default connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn})
+)(App);

@@ -17,6 +17,7 @@ export function LoginForm(props) {
 	const handleSubmit = event => {
     event.preventDefault();
     
+    
     props.logIn(state.email, state.password)
     props.history.replace("map")
   };

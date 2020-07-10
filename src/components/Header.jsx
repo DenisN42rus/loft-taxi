@@ -2,8 +2,10 @@ import React from "react";
 import {PropTypes} from "prop-types";
 import { AppBar, Toolbar } from '@material-ui/core';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {logOut} from '../actions/authActions';
 
-export function Header(props) {
+function Header(props) {
 
 	const unauthenticate = () => {
 		props.logOut();
@@ -54,3 +56,8 @@ Header.propTypes = {
     logIn: PropTypes.func,
     logOut: PropTypes.func.isRequired
   }
+
+export default connect(
+  null,
+  {logOut}
+)(Header)

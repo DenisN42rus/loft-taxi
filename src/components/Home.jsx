@@ -1,9 +1,10 @@
 import React from "react";
 import {LoginForm} from "./LoginForm";
 import {SignUpForm} from "./SignUpForm";
-import {withAuth} from '../AuthContext';
+import {connect} from 'react-redux';
 import {PropTypes} from "prop-types";
 import {Route, Switch} from 'react-router-dom';
+import {logIn} from '../actions/authActions';
 
 export function Home(props) {
 	return (
@@ -26,4 +27,7 @@ Home.propTypes = {
     logOut: PropTypes.func
   }
 
-export const HomeWithAuth = withAuth(Home);
+export const HomeWithAuth = connect(
+	(state) => ({isLoggedIn: state.auth.isLoggedIn}),
+	{logIn}
+)(Home);
