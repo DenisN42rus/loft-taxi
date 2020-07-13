@@ -1,6 +1,5 @@
 import React from "react";
 import {render, fireEvent} from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 import {HomeWithAuth} from '../../components/Home';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';

@@ -1,7 +1,6 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
 import {SignUpForm} from "../../components/SignUpForm";
-import "@testing-library/jest-dom/extend-expect";
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';

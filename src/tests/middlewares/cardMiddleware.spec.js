@@ -1,7 +1,6 @@
 import {cardMiddleware} from '../../middlewares/cardMiddleware';
 import {sendCard} from '../../actions/cardActions';
 import {serverAddCard} from '../../api';
-import "@testing-library/jest-dom/extend-expect";
 
 jest.mock("../../api", () => ({serverAddCard: jest.fn(() => true)}))
 

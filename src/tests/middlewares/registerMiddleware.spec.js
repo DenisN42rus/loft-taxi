@@ -1,7 +1,6 @@
 import {registerMiddleware} from '../../middlewares/registerMiddleware';
 import {register} from '../../actions/registerAction';
 import {serverRegister} from '../../api';
-import "@testing-library/jest-dom/extend-expect";
 
 jest.mock("../../api", () => ({serverRegister: jest.fn(() => true)}))
 

@@ -1,7 +1,6 @@
 import {authMiddleware} from '../../middlewares/authMiddleware';
 import {authenticate} from '../../actions/authActions';
 import {serverLogin} from '../../api';
-import "@testing-library/jest-dom/extend-expect";
 
 jest.mock("../../api", () => ({serverLogin: jest.fn(() => true)}))
 
