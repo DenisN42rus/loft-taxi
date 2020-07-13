@@ -1,6 +1,7 @@
-import React from 'react';
-import {withAuth} from '../AuthContext';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {PropTypes} from "prop-types";
+import {sendCard} from '../actions/cardActions';
 import { 
   Paper, 
   Grid, 
@@ -13,7 +14,8 @@ import {
 } from '@material-ui/core';
 
 export function Profile(props) {
-	
+	const [state, setState] = useState({cardNumber: "", expiryDate: "", cardName: "", cvc: ""})
+
 	const paperStyle = {
 		width: "752px",
 		height: "457px",
@@ -46,6 +48,17 @@ export function Profile(props) {
     flexDirection: "column",
     justifyContent: "space-around"
 	}
+
+	const { cardNumber, expiryDate, cardName, cvc } = state;
+
+	const handleClick = event => {
+		event.preventDefault();
+		
+		props.sendCard(state.cardNumber, state.expiryDate, state.cardName, state.cvc)
+	}
+	const handleChange = event => {
+    setState({...state, [event.target.name]: event.target.value });
+  };
 	return (
 		<Grid container={true} alignItems="center" justify="center">
       <Grid item>
@@ -67,21 +80,23 @@ export function Profile(props) {
 			          	 				  <InputLabel htmlFor="my-input" required shrink>Номер карты</InputLabel>
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
-			          	 				  	name="cardNumber" 
+			          	 				  	name="cardNumber"
+			          	 				  	value={cardNumber}
 			          	 				  	placeholder="0000 0000 0000 0000"
 			          	 				  	required
 			          	 				  	style={inputBaseStyle}
+			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
 			          	 				<FormControl fullWidth>
 			          	 				  <InputLabel htmlFor="my-input" required shrink>Срок действия</InputLabel>
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
-			          	 				  	name="cardNumber" 
-			          	 				  	value="07/20"
+			          	 				  	name="expiryDate" 
+			          	 				  	value={expiryDate}
 			          	 				  	required
-			          	 				  	readOnly
 			          	 				  	style={inputBaseStyle}
+			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
 			          	 			</Box>
@@ -96,8 +111,10 @@ export function Profile(props) {
 			          	 				  	fullWidth 
 			          	 				  	name="cardName" 
 			          	 				  	placeholder="USER NAME"
+			          	 				  	value={cardName}
 			          	 				  	required
 			          	 				  	style={inputBaseStyle}
+			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
 			          	 				<FormControl fullWidth>
@@ -105,9 +122,11 @@ export function Profile(props) {
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
 			          	 				  	name="cvc" 
+			          	 				  	value={cvc}
 			          	 				  	placeholder="CVC"
 			          	 				  	required
 			          	 				  	style={inputBaseStyle}
+			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
 			          	 			</Box>
@@ -124,6 +143,7 @@ export function Profile(props) {
         	 	  data-testid="submit"
         	 	  type="submit"
         	 	  style={buttonStyle}
+        	 	  onClick={handleClick}
         	 	>
         	 	  Сохранить
         	 	</Button>
@@ -135,9 +155,15 @@ export function Profile(props) {
 }
 
 Profile.propTypes = {
-	isLoggedIn: PropTypes.bool,
-	logIn: PropTypes.func,
-	logOut: PropTypes.func.isRequired
+	isLoggedIn: PropTypes.bool
 }
 
-export const ProfileWithAuth = withAuth(Profile);
+export const ProfileWithAuth = connect(
+	(state) => ({
+		cardNumber: state.card.cardNumber,
+		expiryDate: state.card.expiryDate,
+		cardName: state.card.cardName,
+		cvc: state.card.cvc
+	}),
+	{sendCard}
+)(Profile);

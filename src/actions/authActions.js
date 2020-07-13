@@ -1,5 +1,8 @@
-export const LOG_IN = "LOG_IN";
-export const LOG_OUT = "LOG_OUT";
+import {createAction} from 'redux-actions';
 
-export const logIn = () => ({type: LOG_IN});
-export const logOut = () => ({type: LOG_OUT});
+export const logIn = createAction("LOG_IN");
+export const logOut = createAction("LOG_OUT");
+export const authenticate = createAction(
+	"AUTHENTICATE",
+	(email, password) => ({email, password})
+);

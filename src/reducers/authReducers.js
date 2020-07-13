@@ -1,15 +1,19 @@
-import {LOG_IN, LOG_OUT} from "../actions/authActions";
+import {logIn, logOut} from "../actions/authActions";
 
-const initialState = {
-	isLoggedIn: false
+let key = localStorage.getItem('isLoggedIn');
+
+if(key === "false") key = false
+
+export const initialState = {
+	isLoggedIn: key
 }
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case LOG_IN: {
+		case logIn.toString(): {
 			return {isLoggedIn: true}
 		}
-		case LOG_OUT: {
+		case logOut.toString(): {
 			return {isLoggedIn: false}
 		}
 		default:

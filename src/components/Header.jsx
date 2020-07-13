@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {logOut} from '../actions/authActions';
 
-function Header(props) {
+export function Header(props) {
 
 	const unauthenticate = () => {
+    localStorage.isLoggedIn = false;
 		props.logOut();
-		props.history.replace("home")
 	}
   
   const toolbarStyle = {
@@ -53,11 +53,10 @@ function Header(props) {
 
 Header.propTypes = {
     isLoggedIn: PropTypes.bool,
-    logIn: PropTypes.func,
     logOut: PropTypes.func.isRequired
   }
 
-export default connect(
+export const HeaderWithConnect = connect(
   null,
   {logOut}
 )(Header)

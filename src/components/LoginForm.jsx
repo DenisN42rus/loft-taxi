@@ -13,13 +13,14 @@ import {
 
 export function LoginForm(props) {
 	const [state, setState] = useState({email: "", password: ""})
-  
+
 	const handleSubmit = event => {
     event.preventDefault();
-    
-    
-    props.logIn(state.email, state.password)
-    props.history.replace("map")
+   
+    props.authenticate(state.email, state.password)
+    setTimeout(() => {
+      props.history.replace("Map")
+    }, 1000)
   };
 
   const handleChange = event => {
@@ -97,6 +98,5 @@ export function LoginForm(props) {
 
 LoginForm.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    logIn: PropTypes.func.isRequired,
-    logOut: PropTypes.func
+    authenticate: PropTypes.func.isRequired
   }

@@ -3,28 +3,18 @@ import {ProfileWithAuth} from './Profile';
 import {HomeWithAuth} from './Home';
 import {Map} from './Map';
 import {connect} from 'react-redux';
-import Header from "./Header";
-import {Route, Redirect} from 'react-router-dom';
+import {HeaderWithConnect} from "./Header";
+import {Redirect} from 'react-router-dom';
+import {PrivateRoute} from '../PrivateRoute';
 
 export function App(props) {
   return (
     <>
-      {props.isLoggedIn ? (
-        <>
-          <Route render={(history) => (
-            <Header {...props} {...history}/>
-          )}/>
-          <Route exac path="/Map" component={Map} />
-          <Route exac path="/Profile" component={ProfileWithAuth} />
-        </>
-      ) : (
-      <>
-        <Redirect from="/" to="/LoginForm" />
-        <Route path='/LoginForm' render={(props) => (
-          <HomeWithAuth {...props}/>
-        )}/>
-      </>
-      )}
+      <Redirect from="/" to="/Map" />
+      <HomeWithAuth {...props} />
+      <PrivateRoute component={HeaderWithConnect} />
+      <PrivateRoute exac path="/Map" component={Map} />
+      <PrivateRoute exac path="/Profile" component={ProfileWithAuth} />
     </>
   )
 }

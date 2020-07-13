@@ -1,10 +1,16 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './reducers';
+import {authMiddleware} from './middlewares/authMiddleware';
+import {cardMiddleware} from './middlewares/cardMiddleware';
+import {registerMiddleware} from './middlewares/registerMiddleware';
 
-let store = createStore(rootReducer);
+export const store = createStore(
+		rootReducer, 
+		compose(applyMiddleware(authMiddleware),
+						applyMiddleware(cardMiddleware),
+						applyMiddleware(registerMiddleware)
+		));
 
 store.subscribe(() => {
-	console.log(store.getState());
-});
-
-export {store};
+	console.log(store.getState())
+})

@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 
 export function SignUpForm(props) {
+  
   const [state, setState] = useState({
     email: "",
     name: "",
@@ -22,7 +23,10 @@ export function SignUpForm(props) {
 	const handleSubmit = event => {
     event.preventDefault();
     
-    props.history.replace("map")
+    props.register(state.email, state.password, state.name, state.lastName)
+    setTimeout(() => {
+      props.history.replace("Map")
+    }, 1000)
   };
 
   const handleChange = event => {
@@ -127,6 +131,5 @@ export function SignUpForm(props) {
 
 SignUpForm.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    logIn: PropTypes.func.isRequired,
-    logOut: PropTypes.func
+    register: PropTypes.func.isRequired
   }

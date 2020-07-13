@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from "@testing-library/react";
-import {Map} from "../components/Map";
+import {Map} from "../../components/Map";
 import "@testing-library/jest-dom/extend-expect";
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
