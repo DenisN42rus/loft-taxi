@@ -30,7 +30,7 @@ export function SignUpForm(props) {
   };
 
   const handleChange = event => {
-    setState({ [event.target.name]: event.target.value });
+    setState({...state, [event.target.name]: event.target.value });
   };
 
 	const { email, name, lastName, password } = state;

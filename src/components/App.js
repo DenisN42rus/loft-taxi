@@ -1,7 +1,7 @@
 import React from 'react';
 import {ProfileWithAuth} from './Profile';
 import {HomeWithAuth} from './Home';
-import {Map} from './Map';
+import {MapWithConnect} from './Map';
 import {connect} from 'react-redux';
 import {HeaderWithConnect} from "./Header";
 import {Redirect} from 'react-router-dom';
@@ -13,7 +13,7 @@ export function App(props) {
       <Redirect from="/" to="/Map" />
       <HomeWithAuth {...props} />
       <PrivateRoute component={HeaderWithConnect} />
-      <PrivateRoute exac path="/Map" component={Map} />
+      <PrivateRoute exac path="/Map" component={MapWithConnect} />
       <PrivateRoute exac path="/Profile" component={ProfileWithAuth} />
     </>
   )

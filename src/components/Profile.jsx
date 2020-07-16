@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from "prop-types";
-import {sendCard} from '../actions/cardActions';
+import {sendCard, getCard} from '../actions/cardActions';
 import { 
   Paper, 
   Grid, 
@@ -14,7 +14,11 @@ import {
 } from '@material-ui/core';
 
 export function Profile(props) {
-	const [state, setState] = useState({cardNumber: "", expiryDate: "", cardName: "", cvc: ""})
+	const [state, setState] = useState({
+				cardNumber: localStorage.cardNumber, 
+				expiryDate: localStorage.expiryDate, 
+				cardName: localStorage.cardName, 
+				cvc: localStorage.cvc})
 
 	const paperStyle = {
 		width: "752px",
@@ -50,6 +54,9 @@ export function Profile(props) {
 	}
 
 	const { cardNumber, expiryDate, cardName, cvc } = state;
+	useEffect(() => {
+		props.getCard()
+	})
 
 	const handleClick = event => {
 		event.preventDefault();
@@ -165,5 +172,5 @@ export const ProfileWithAuth = connect(
 		cardName: state.card.cardName,
 		cvc: state.card.cvc
 	}),
-	{sendCard}
+	{sendCard, getCard}
 )(Profile);

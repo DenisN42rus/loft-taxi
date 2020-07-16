@@ -1,15 +1,20 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './reducers';
-import {authMiddleware} from './middlewares/authMiddleware';
-import {cardMiddleware} from './middlewares/cardMiddleware';
-import {registerMiddleware} from './middlewares/registerMiddleware';
+import createSagaMiddleware from 'redux-saga';
+import {rootSaga} from "./sagas"
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
 		rootReducer, 
-		compose(applyMiddleware(authMiddleware),
-						applyMiddleware(cardMiddleware),
-						applyMiddleware(registerMiddleware)
+		compose(
+						applyMiddleware(sagaMiddleware),
+						window.__REDUX_DEVTOOLS_EXTENSION__ ?
+						window.__REDUX_DEVTOOLS_EXTENSION__()
+						: noop => noop
 		));
+
+sagaMiddleware.run(rootSaga)
 
 store.subscribe(() => {
 	console.log(store.getState())

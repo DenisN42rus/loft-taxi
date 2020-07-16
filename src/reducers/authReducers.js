@@ -2,7 +2,11 @@ import {logIn, logOut} from "../actions/authActions";
 
 let key = localStorage.getItem('isLoggedIn');
 
-if(key === "false") key = false
+if(key === "false") {
+	key = false
+} else if(key === "true") {
+	key = true
+}
 
 export const initialState = {
 	isLoggedIn: key
