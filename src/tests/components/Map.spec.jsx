@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from "@testing-library/react";
-import {Map} from "../../components/Map";
+import {MapWithConnect} from "../../components/Map";
+import {Provider} from 'react-redux';
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
   GeolocateControl: jest.fn(),
@@ -16,9 +17,20 @@ jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
 describe("Map", () => {
 	it("renders correctly", () => {
 
-		const {getByTestId} = render(<Map />)
+    const mockStore = {
+        getState: () => ({route: {addresses: [], coordinates: []}}),
+        subscribe: () => {},
+        dispatch: () => {}
+      }
+
+		const {getByTestId} = render(
+      <Provider store={mockStore}>
+        <MapWithConnect />
+      </Provider>
+    )
 
 		expect(getByTestId("map-wrapper")).toBeInTheDocument()
 		expect(getByTestId("map")).toBeInTheDocument()
 	})
 })
+

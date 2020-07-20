@@ -12,6 +12,7 @@ import {
   InputBase,
   Box
 } from '@material-ui/core';
+import styles from '../css/profile.module.css';
 
 export function Profile(props) {
 	const [state, setState] = useState({
@@ -19,39 +20,6 @@ export function Profile(props) {
 				expiryDate: localStorage.expiryDate, 
 				cardName: localStorage.cardName, 
 				cvc: localStorage.cvc})
-
-	const paperStyle = {
-		width: "752px",
-		height: "457px",
-		padding: "44px 60px",
-    marginTop: "48px",
-    marginBottom: "48px",
-	}
-	const inputBaseStyle = {
-		marginTop: "16px"
-	}
-	const textStyle = {
-		marginBottom: "40px"
-	}
-	const cardStyle = {
-    width: "300px",
-    height: "189px",
-    position: "relative",
-    paddingTop: "16px",
-    paddingLeft: "32px",
-    paddingRight: "32px",
-    paddingBottom: "16px"
-	}
-	const buttonStyle = {
-		marginTop: "24px",
-    marginLeft: "8px"
-	}
-	const boxStyle = {
-		height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around"
-	}
 
 	const { cardNumber, expiryDate, cardName, cvc } = state;
 	useEffect(() => {
@@ -66,43 +34,44 @@ export function Profile(props) {
 	const handleChange = event => {
     setState({...state, [event.target.name]: event.target.value });
   };
+  
 	return (
 		<Grid container={true} alignItems="center" justify="center">
       <Grid item>
-        <Paper className="formContainer" style={paperStyle}>
+        <Paper className={styles.formContainer}>
         	 <Typography align="center" variant="h4">
         	 	Профиль
         	 </Typography>
-        	 <Typography align="center" style={textStyle}>
+        	 <Typography align="center" className="offsetBottom">
         	 	Способ оплаты
         	 </Typography>
-        	 <form data-testid="form">
+        	 <form data-testid="form" onSubmit={handleClick}>
           	 	<Grid container alignItems="center" justify="center">
           	 		<Grid item xs={12}>
           	 			<Grid container spacing={4} alignItems="center" justify="center">
 		          	 		<Grid item xs={6}>
-		          	 			<Paper elevation={3} style={cardStyle}>
-			          	 			<Box style={boxStyle}>
+		          	 			<Paper elevation={3} className={styles.card}>
+			          	 			<Box className={styles.container}>
 			          	 				<FormControl fullWidth>
-			          	 				  <InputLabel htmlFor="my-input" required shrink>Номер карты</InputLabel>
+			          	 				  <InputLabel htmlFor="my-input" shrink>Номер карты</InputLabel>
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
 			          	 				  	name="cardNumber"
 			          	 				  	value={cardNumber}
 			          	 				  	placeholder="0000 0000 0000 0000"
 			          	 				  	required
-			          	 				  	style={inputBaseStyle}
+			          	 				  	className={styles.input}
 			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
 			          	 				<FormControl fullWidth>
-			          	 				  <InputLabel htmlFor="my-input" required shrink>Срок действия</InputLabel>
+			          	 				  <InputLabel htmlFor="my-input" shrink>Срок действия</InputLabel>
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
 			          	 				  	name="expiryDate" 
 			          	 				  	value={expiryDate}
 			          	 				  	required
-			          	 				  	style={inputBaseStyle}
+			          	 				  	className={styles.input}
 			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
@@ -110,29 +79,29 @@ export function Profile(props) {
 		          	 			</Paper>
 			          	 	</Grid>
 			          	 	<Grid item xs={6}>
-		          	 			<Paper elevation={3} style={cardStyle}>
-			          	 			<Box style={boxStyle}>
+		          	 			<Paper elevation={3} className={styles.card}>
+			          	 			<Box className={styles.container}>
 			          	 				<FormControl fullWidth>
-			          	 				  <InputLabel htmlFor="my-input" required shrink>Имя владельца</InputLabel>
+			          	 				  <InputLabel htmlFor="my-input" shrink>Имя владельца</InputLabel>
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
 			          	 				  	name="cardName" 
 			          	 				  	placeholder="USER NAME"
 			          	 				  	value={cardName}
 			          	 				  	required
-			          	 				  	style={inputBaseStyle}
+			          	 				  	className={styles.input}
 			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
 			          	 				<FormControl fullWidth>
-			          	 				  <InputLabel htmlFor="my-input" required shrink>CVC</InputLabel>
+			          	 				  <InputLabel htmlFor="my-input" shrink>CVC</InputLabel>
 			          	 				  <InputBase 
 			          	 				  	fullWidth 
 			          	 				  	name="cvc" 
 			          	 				  	value={cvc}
 			          	 				  	placeholder="CVC"
 			          	 				  	required
-			          	 				  	style={inputBaseStyle}
+			          	 				  	className={styles.input}
 			          	 				  	onChange={handleChange}
 			          	 				  />
 			          	 				</FormControl>
@@ -142,19 +111,18 @@ export function Profile(props) {
 		          	 	</Grid>
 	          	 	</Grid>
           	 	</Grid>
-        	 </form>
-        	 <Grid container justify="center">
-        	 	<Button 
-        	 	  variant="contained" 
-        	 	  color="primary"
-        	 	  data-testid="submit"
-        	 	  type="submit"
-        	 	  style={buttonStyle}
-        	 	  onClick={handleClick}
-        	 	>
-        	 	  Сохранить
-        	 	</Button>
+	        	 <Grid container justify="center">
+	        	 	<Button 
+	        	 	  variant="contained" 
+	        	 	  color="primary"
+	        	 	  data-testid="submit"
+	        	 	  type="submit"
+	        	 	  className={styles.button}
+	        	 	>
+	        	 	  Сохранить
+	        	 	</Button>
         	 </Grid>
+        	 </form>
         </Paper>
       </Grid>
     </Grid>

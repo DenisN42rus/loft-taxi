@@ -4,6 +4,7 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {logOut} from '../actions/authActions';
+import styles from "../css/header.module.css"
 
 export function Header(props) {
 
@@ -11,19 +12,10 @@ export function Header(props) {
     localStorage.isLoggedIn = false;
 		props.logOut();
 	}
-  
-  const toolbarStyle = {
-    backgroundColor: "#fff"
-  }
-  const buttonStyle = {
-    border: "none",
-    background: "#fff",
-    borderRadius: "5px",
-    outline: "none"
-  }
+
 	return (
     <>
-      <AppBar elevation={4} style={toolbarStyle} position="static" color="primary">
+      <AppBar elevation={4} className={styles.toolbar} position="static" color="primary">
         <Toolbar>
           <nav>
             <ul>
@@ -35,7 +27,7 @@ export function Header(props) {
               </li>
               <li>
                 <button
-                  style={buttonStyle}
+                  className={styles.button}
                   onClick={() => {
                     unauthenticate();
                   }}

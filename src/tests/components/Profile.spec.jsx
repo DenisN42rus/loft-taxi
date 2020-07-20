@@ -1,7 +1,8 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {Profile} from "../../components/Profile";
+import {ProfileWithAuth} from "../../components/Profile";
 import {PropTypes} from "prop-types";
+import {Provider} from 'react-redux';
 
 describe("Profile", () => {
 	const props = {
@@ -10,8 +11,18 @@ describe("Profile", () => {
 		logOut: () => {}
 	}
 
+	 const mockStore = {
+        getState: () => ({card: {cardNumber: "cardNumber", expiryDate: "expiryDate", cardName: "cardName", cvc: "cvc"}}),
+        subscribe: () => {},
+        dispatch: () => {}
+      }
+
 	it("renders correctly", () => {
-		const {getByTestId} = render(<Profile {...props}/>)
+		const {getByTestId} = render(
+			<Provider store={mockStore}>
+        <ProfileWithAuth {...props}/>
+      </Provider>
+		)
 
 		expect(getByTestId("form")).toBeInTheDocument()
 	})
@@ -23,13 +34,23 @@ describe("When clicked on submit button", () => {
 			logIn: () => {},
 			navigate: () => {},
 			isLoggedIn: false,
-			sendCard: jest.fn()
+			handleClick: jest.fn()
 		}
 
-		const {getByTestId} = render(<Profile {...props}/>)
+		 const mockStore = {
+        getState: () => ({card: {cardNumber: "cardNumber", expiryDate: "expiryDate", cardName: "cardName", cvc: "cvc"}}),
+        subscribe: () => {},
+        dispatch: () => {}
+      }
+
+		const {getByTestId} = render(
+			<Provider store={mockStore}>
+        <ProfileWithAuth {...props}/>
+      </Provider>
+     )
 		const submit = getByTestId("submit");
 		
 		fireEvent.click(submit)
-		expect(props.sendCard).toHaveBeenCalled();
+		expect(props.handleClick).toHaveBeenCalled();
 	})
 })

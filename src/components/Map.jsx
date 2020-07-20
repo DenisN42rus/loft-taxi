@@ -12,9 +12,11 @@ import {
   Select,
   MenuItem
 } from '@material-ui/core';
+import styles from '../css/map.module.css';
 
 export function Map(props) {
 	const [route, setRoute] = useState({startRoute: "", endRoute: ""});
+	const [newOrder, setNewOrder] = useState(true);
 	const mapContainer = React.createRef();
 	let map = useRef(null);
 
@@ -36,6 +38,10 @@ export function Map(props) {
 	useEffect(() => {
 		props.getRoute()
 	}, []);
+
+	useEffect(() => {
+		drawRoute(map.current, props.coordinates);
+	}, [props.coordinates])
 
 	const drawRoute = (map, coordinates) => {
 		if(coordinates.length > 0) {
@@ -81,93 +87,133 @@ export function Map(props) {
   const orderTaxi = (e) => {
   	e.preventDefault();
 
-  	props.getAddress(route.startRoute, route.endRoute)
-  	drawRoute(map.current, props.coordinates)
+  	props.getAddress(route.startRoute, route.endRoute);
+  	setNewOrder(false);
+  }
+
+  const getNewTaxi = () => {
+  	setNewOrder(true);
+  	setRoute({startRoute: "", endRoute: ""});
+  	if (map.current.getLayer('route')) {
+  		map.current.removeLayer('route');
+  		map.current.removeSource('route');
+  	}
   }
 
 	const { startRoute, endRoute } = route;
 
-	const paperStyle = {
-		padding: "44px 60px",
-    marginTop: "95px",
-    marginBottom: "48px",
-    top: "0",
-    left: "20px",
-    position: "absolute",
-    maxWidth: "30%"
-	}
-
-	const textStyle = {
-		marginBottom: "30px"
-	}
 	return (
 		<>
-		<div data-testid="map-wrapper" className="map-wrapper">
-			<div data-testid="map" className="map" ref={mapContainer}></div>
+		<div data-testid="map-wrapper" className={styles.mapWrapper}>
+			<div data-testid="map" className={styles.map} ref={mapContainer}></div>
 		</div>
 		{localStorage.hasCard ? 
-			(
-				<Paper style={paperStyle}>
-					<Grid container>
-						<Grid item xs={12}>
-							<FormControl fullWidth style={textStyle}>
-				        <InputLabel id="demo-simple-select-label">Откуда</InputLabel>
-				        <Select
-				          labelId="demo-simple-select-label"
-				          id="demo-simple-select"
-				          name="startRoute"
-				          value={startRoute}
-				          fullWidth
-				          onChange={handleChange}
-				        	>
-				        	{props.addresses ? (
-				        		props.addresses.map((address) => (<MenuItem key={address} value={address}>{address}</MenuItem>))
-				        		) : (<></>)
-				        	}
-				        </Select>
-				      </FormControl>
+			(	<>
+				{newOrder ? (
+					<>
+					<Paper className={styles.formContainer}>
+						<Grid container>
+							<Grid item xs={12}>
+								<FormControl fullWidth className="offsetBottom">
+					        <InputLabel id="startRoute-label">Откуда</InputLabel>
+					        <Select
+					          labelId="startRoute-label"
+					          id="startRoute"
+					          name="startRoute"
+					          value={startRoute}
+					          fullWidth
+					          onChange={handleChange}
+					        	>
+					        	{props.addresses ? (
+					        		props.addresses.map((address) => {
+					        			if(address === endRoute) {
+					        				return null;
+					        			}
+					        			return (<MenuItem key={address} value={address}>{address}</MenuItem>);
+					        		})
+					        		) : (<></>)
+					        	}
+					        </Select>
+					      </FormControl>
+							</Grid>
+							<Grid item xs={12}>
+								<FormControl fullWidth className="offsetBottom">
+					        <InputLabel id="endRoute-label">Куда</InputLabel>
+					        <Select
+					          labelId="endRoute-label"
+					          id="endRoute"
+					          name="endRoute"
+					          value={endRoute}
+					          fullWidth
+					          onChange={handleChange}
+					        	>
+					          {props.addresses ? (
+					        		props.addresses.map((address) => {
+					        			if(address === startRoute) {
+					        				return null;
+					        			}
+					        			return (<MenuItem key={address} value={address}>{address}</MenuItem>);
+					        		})
+					        		) : (<></>)
+					        	}
+					        </Select>
+					      </FormControl>
+							</Grid>
+							<Grid item xs={12}>
+								<Button 
+								  variant="contained" 
+								  color="primary"
+								  fullWidth
+								  onClick={orderTaxi}
+								  data-testid="submit"
+								  disabled={!(route.startRoute && route.endRoute)}
+								>
+								  Вызвать такси
+								</Button>
+							</Grid>
 						</Grid>
-						<Grid item xs={12}>
-							<FormControl fullWidth style={textStyle}>
-				        <InputLabel id="demo-simple-select-label">Куда</InputLabel>
-				        <Select
-				          labelId="demo-simple-select-label"
-				          id="demo-simple-select"
-				          name="endRoute"
-				          value={endRoute}
-				          fullWidth
-				          onChange={handleChange}
-				        	>
-				          {props.addresses ? (
-				        		props.addresses.map((address) => (<MenuItem key={address} value={address}>{address}</MenuItem>))
-				        		) : (<></>)
-				        	}
-				        </Select>
-				      </FormControl>
+					</Paper>
+					</>
+					) : (
+					<>
+					<Paper className={styles.formContainer}>
+						<Grid container>
+							<Grid item xs={12}>
+								<Typography className="offsetBottom" align="left" variant="h4">
+			            Заказ размещён
+			          </Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<Typography className="offsetBottom" align="left">
+			            Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.
+			          </Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<Button 
+								  variant="contained" 
+								  color="primary"
+								  fullWidth
+								  onClick={getNewTaxi}
+									>
+								  Сделать новый заказ
+								</Button>
+							</Grid>
 						</Grid>
-						<Grid item xs={12}>
-							<Button 
-							  variant="contained" 
-							  color="primary"
-							  fullWidth
-							  onClick={orderTaxi}
-							  disabled={!(route.startRoute && route.endRoute)}
-							>
-							  Вызвать такси
-							</Button>
-						</Grid>
-					</Grid>
-				</Paper>
+					</Paper>
+					</>
+					)
+				}
+				</>
 			) : (
-				<Paper style={paperStyle}>
+				<Paper className={styles.formContainer}>
 					<Grid container>
 						<Grid item xs={12}>
-							<Typography align="left" variant="h4" style={textStyle}>
+							<Typography align="left" variant="h4" className="offsetBottom">
 								Заполните платежные данные
 							</Typography>
 						</Grid>
 						<Grid item xs={12}>
-							<Typography align="left" style={textStyle}>
+							<Typography align="left" className="offsetBottom">
 								Укажите информацию о банковской карте, чтобы сделать заказ.
 							</Typography>
 						</Grid>

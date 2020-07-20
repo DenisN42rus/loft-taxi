@@ -1,0 +1,10 @@
+.toolbar {
+	background-color: #fff !important;
+}
+
+.button {
+	border: none;
+	background: #fff;
+	border-radius: 5px;
+	outline: none;
+}
