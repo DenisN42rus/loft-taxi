@@ -1,16 +1,16 @@
-import {addRoute, addCoordinates} from '../actions/routeActions';
+import {addAddresses, addRoute} from '../actions/routeActions';
 
 export const initialState = {
 	addresses: [],
-	coordinates: []
+	route: []
 }
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case addRoute.toString(): {
+		case addAddresses.toString(): {
 			return Object.assign({}, state, action.payload)
 		}
-		case addCoordinates.toString(): {
+		case addRoute.toString(): {
 			return Object.assign({}, state, action.payload)
 		}
 		default:

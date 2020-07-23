@@ -3,11 +3,10 @@ import {authenticate, logIn} from '../actions/authActions';
 import {serverLogin} from '../api';
 
 export function* authenticateSaga(action) {
-	const {email, password} = action.payload;
-	const result = yield call(serverLogin, email, password)
-	if(result) {
+	const result = yield call(serverLogin, action.payload);
+	if(result.success) {
 		localStorage.isLoggedIn = true;
-		yield put(logIn())
+		yield put(logIn(result))
 	}
 }
 

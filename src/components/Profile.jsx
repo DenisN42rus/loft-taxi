@@ -16,21 +16,20 @@ import styles from '../css/profile.module.css';
 
 export function Profile(props) {
 	const [state, setState] = useState({
-				cardNumber: localStorage.cardNumber, 
-				expiryDate: localStorage.expiryDate, 
-				cardName: localStorage.cardName, 
-				cvc: localStorage.cvc})
+				cardNumber: props.cardNumber, 
+				expiryDate: props.expiryDate, 
+				cardName: props.cardName, 
+				cvc: props.cvc})
 
 	const { cardNumber, expiryDate, cardName, cvc } = state;
 
 	useEffect(() => {
-		props.getCard()
+		props.getCard(props.token);
 	}, [])
 
 	const handleClick = event => {
 		event.preventDefault();
-		
-		props.sendCard(state.cardNumber, state.expiryDate, state.cardName, state.cvc)
+		props.sendCard(state.cardNumber, state.expiryDate, state.cardName, state.cvc, props.token)
 	}
 	
 	const handleChange = event => {
@@ -140,7 +139,8 @@ export const ProfileWithAuth = connect(
 		cardNumber: state.card.cardNumber,
 		expiryDate: state.card.expiryDate,
 		cardName: state.card.cardName,
-		cvc: state.card.cvc
+		cvc: state.card.cvc,
+		token: state.auth.token
 	}),
 	{sendCard, getCard}
 )(Profile);

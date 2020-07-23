@@ -14,12 +14,18 @@ export function Form(props) {
     return <Input {...props} name={props.field.name}/>
   }
 
+  const component = props.component;
+
 	return (
 		<Formik 
 			onSubmit={value => {
-				props.authenticate(value.email, value.password)
+				if(component) {
+					props.register(value.email, value.password, value.Name, value.lastName)
+				} else {
+					props.authenticate(value.email, value.password)
+				}
 			}}
-		  initialValues={{email: "", password: ""}}
+		  initialValues={{email: "", password: "", Name: "", lastName: ""}}
 		  >{(props) => {
 		    return (
 		      <form data-testid="form" onSubmit={props.handleSubmit}>
@@ -38,6 +44,43 @@ export function Form(props) {
 		      				component={myInput}/>
 		      		</FormControl>
 		      	</Grid>
+		      	{component ? (
+		      			<>
+		      			<Grid item xs={6}>
+		      				<FormControl fullWidth>
+		      					<InputLabel htmlFor="name">Имя</InputLabel>
+		      					<Field
+		      						id="name" 
+		      						aria-describedby="my-helper-text" 
+		      						name="Name"
+		      						type="text"
+		      						data-testid="name"
+		      						value={props.values.name}
+		      						className="offsetBottom"
+		      						onChange={props.handleChange}
+		      						component={myInput}/>
+		      				</FormControl>
+		      			</Grid>
+		      			<Grid item xs={6}>
+		      				<FormControl fullWidth>
+		      					<InputLabel htmlFor="lastName">Фамилия</InputLabel>
+		      					<Field
+		      						id="lastName" 
+		      						aria-describedby="my-helper-text" 
+		      						name="lastName"
+		      						type="text"
+		      						data-testid="lastName"
+		      						value={props.values.name}
+		      						className="offsetBottom"
+		      						onChange={props.handleChange}
+		      						component={myInput}/>
+		      				</FormControl>
+		      			</Grid>
+		      			</>
+		      		) : (
+								<></>
+		      		)
+		      	}
 		      	<Grid item xs={12}>
 		      		<FormControl fullWidth>
 		      			<InputLabel htmlFor="password">Пароль</InputLabel>

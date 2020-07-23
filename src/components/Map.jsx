@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import mapbox from 'mapbox-gl';
 import {connect} from 'react-redux';
-import {getRoute, getAddress} from '../actions/routeActions';
+import {getAddresses, getRoute} from '../actions/routeActions';
 import { 
   Paper, 
   Grid, 
@@ -36,12 +36,14 @@ export function Map(props) {
 	}, []);
 
 	useEffect(() => {
-		props.getRoute()
+		if(!props.addresses.length) {
+			props.getAddresses()
+		}
 	}, []);
 
 	useEffect(() => {
-		drawRoute(map.current, props.coordinates);
-	}, [props.coordinates])
+		drawRoute(map.current, props.route);
+	}, [props.route])
 
 	const drawRoute = (map, coordinates) => {
 		if(coordinates.length > 0) {
@@ -87,7 +89,7 @@ export function Map(props) {
   const orderTaxi = (e) => {
   	e.preventDefault();
 
-  	props.getAddress(route.startRoute, route.endRoute);
+  	props.getRoute(route.startRoute, route.endRoute);
   	setNewOrder(false);
   }
 
@@ -238,11 +240,11 @@ export function Map(props) {
 const mapStateToProps = function(state) {
   return {
     addresses: state.route.addresses,
-    coordinates: state.route.coordinates
+    route: state.route.route
   }
 }
 
 export const MapWithConnect = connect(
 	mapStateToProps,
-	{getRoute, getAddress}
+	{getAddresses, getRoute}
 )(Map);

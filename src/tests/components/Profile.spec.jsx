@@ -12,7 +12,16 @@ describe("Profile", () => {
 	}
 
 	 const mockStore = {
-        getState: () => ({card: {cardNumber: "cardNumber", expiryDate: "expiryDate", cardName: "cardName", cvc: "cvc"}}),
+        getState: () => ({
+        	card: 
+        	{
+        		cardNumber: "cardNumber", 
+        		expiryDate: "expiryDate", 
+        		cardName: "cardName", 
+        		cvc: "cvc"
+        	},
+        	auth: {token: "token"}
+        }),
         subscribe: () => {},
         dispatch: () => {}
       }
@@ -38,7 +47,16 @@ describe("When clicked on submit button", () => {
 		}
 
 		 const mockStore = {
-        getState: () => ({card: {cardNumber: "cardNumber", expiryDate: "expiryDate", cardName: "cardName", cvc: "cvc"}}),
+        getState: () => ({
+        	card: 
+        	{
+        		cardNumber: "cardNumber", 
+        		expiryDate: "expiryDate", 
+        		cardName: "cardName", 
+        		cvc: "cvc"
+        	},
+        	auth: {token: "token"}
+        }),
         subscribe: () => {},
         dispatch: () => {}
       }

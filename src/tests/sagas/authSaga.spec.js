@@ -2,7 +2,7 @@ import {recordSaga} from './recordSaga';
 import {authenticateSaga} from '../../sagas/authSaga';
 import {authenticate} from '../../actions/authActions';
 
-jest.mock("../../api", () => ({serverLogin: jest.fn(() => true)}));
+jest.mock("../../api", () => ({serverLogin: jest.fn(() => ({success: true}))}));
 
 describe("authSaga", () => {
 	describe("AUTHENTICATE", () => {
@@ -12,11 +12,7 @@ describe("authSaga", () => {
 				authenticate("testLogin", "testPassword")
 			);
 
-			expect(dispatched).toEqual([
-				{
-					type: "LOG_IN"
-				}
-			]);
+			expect(dispatched[0]).toEqual(expect.objectContaining({type: "LOG_IN"}));
 		});
 	});
 });

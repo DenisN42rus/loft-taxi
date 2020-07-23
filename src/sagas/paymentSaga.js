@@ -3,23 +3,18 @@ import {sendCard, getCard, addCard} from '../actions/cardActions';
 import {serverAddCard, serverGetCard} from '../api';
 
 export function* sendCardSaga(action) {
-	const {cardNumber, expiryDate, cardName, cvc} = action.payload;
-	const result = yield call(serverAddCard, cardNumber, expiryDate, cardName, cvc)
+	const result = yield call(serverAddCard, action.payload);
 	if(result) {
-		localStorage.cardNumber = cardNumber;
-		localStorage.expiryDate = expiryDate;
-		localStorage.cardName = cardName;
-		localStorage.cvc = cvc;
 		localStorage.hasCard = true;
-		yield put(addCard(cardNumber, expiryDate, cardName, cvc))
+		yield put(addCard(action.payload))
 	}
 }
 
 export function* getCardSaga(action) {
-	const result = yield call(serverGetCard)
+	const result = yield call(serverGetCard, action.payload);
 	if(result) {
-		const {cardNumber, expiryDate, cardName, cvc} = localStorage;
-		yield put(addCard(cardNumber, expiryDate, cardName, cvc))
+		localStorage.hasCard = true;
+		yield put(addCard(result))
 	}
 }
 

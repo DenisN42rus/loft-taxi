@@ -9,7 +9,10 @@ describe("sendCardSaga", () => {
 		it("send card through api", async () => {
 			const dispatched = await recordSaga(
 				sendCardSaga,
-				addCard("number", "date", "name", "cvc")
+				addCard({"cardName": "name", 
+				"cardNumber": "number", 
+				"cvc": "cvc", 
+				"expiryDate": "date"})
 			);
 
 			expect(dispatched).toEqual([

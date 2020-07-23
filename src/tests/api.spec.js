@@ -1,12 +1,12 @@
-import {serverLogin, serverAddCard, serverGetCard, serverGetRoute, serverGetAddress} from "../api";
+import {serverLogin, serverAddCard, serverGetCard, serverGetRoute, serverGetAddresses} from "../api";
 
 describe("serverLogin", () => {
 	it("return success", async () => {
 		const email = "test@test.com";
 		const password = "123123";
-		const data = await serverLogin(email, password);
+		const data = await serverLogin({email, password});
 
-		expect(data).toBe(true)
+		expect(data.success).toBe(true)
 	})
 })
 
@@ -23,22 +23,16 @@ describe("serverAddCard", () => {
 })
 
 describe("serverGetCard", () => {
-	it("return success", async () => {
+	it("return card", async () => {
 		const data = await serverGetCard();
 
-		expect(data).toStrictEqual({
-			cardName: "123",
-			cardNumber: "123",
-			cvc: "123",
-			expiryDate: "2020-07-17T05:25:10.561Z",
-			id: "rec4NwqbXyWY2Ju7E"
-		})
+		expect(data).toHaveProperty("cardNumber")
 	})
 })
 
-describe("serverGetRoute", () => {
-	it("return success", async () => {
-		const data = await serverGetRoute();
+describe("serverGetAddresses", () => {
+	it("return addresses", async () => {
+		const data = await serverGetAddresses();
 
 		expect(data).toStrictEqual({
 			addresses: [
@@ -50,9 +44,9 @@ describe("serverGetRoute", () => {
 	})
 })
 
-describe("serverGetAddress", () => {
-	it("return success", async () => {
-		const data = await serverGetAddress("Пулково (LED)", "Шаверма на Невском");
+describe("serverGetRoute", () => {
+	it("return route", async () => {
+		const data = await serverGetRoute({startRoute: "Пулково (LED)", endRoute: "Шаверма на Невском"});
 
 		expect(data).toHaveLength(24)
 	})

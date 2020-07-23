@@ -18,7 +18,7 @@ describe("Map", () => {
 	it("renders correctly", () => {
 
     const mockStore = {
-        getState: () => ({route: {addresses: [], coordinates: []}}),
+        getState: () => ({route: {addresses: [], route: []}}),
         subscribe: () => {},
         dispatch: () => {}
       }

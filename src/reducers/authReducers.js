@@ -15,7 +15,7 @@ export const initialState = {
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case logIn.toString(): {
-			return {isLoggedIn: true}
+			return Object.assign({}, state, {isLoggedIn: action.payload.success, token: action.payload.token})
 		}
 		case logOut.toString(): {
 			return {isLoggedIn: false}

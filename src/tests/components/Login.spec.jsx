@@ -1,11 +1,11 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {LoginForm} from "../../components/LoginForm";
+import {Login} from "../../components/Login";
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 
-describe("LoginForm", () => {
+describe("Login", () => {
 	it("renders correctly", () => {
 		const props = {
 			logIn: () => {},
@@ -25,7 +25,7 @@ describe("LoginForm", () => {
 			const {getByTestId, getByText} = render(
 				<Router history={history}>
 					<Provider store={mockStore}>
-						<LoginForm {...props}/>
+						<Login {...props}/>
 					</Provider>
 				</Router>
 			);

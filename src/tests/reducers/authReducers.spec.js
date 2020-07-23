@@ -6,6 +6,9 @@ describe('auth reducers', () => {
   it('LOG_IN', () => { 
     const action = {
       type: logIn.toString(),
+      payload: {
+        success: true
+      }
     }
 
     expect(reducer(initialState, action)).toEqual({

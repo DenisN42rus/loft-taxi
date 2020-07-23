@@ -1,23 +1,22 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {getRoute, addRoute, getAddress, addCoordinates} from '../actions/routeActions';
-import {serverGetRoute, serverGetAddress} from '../api';
+import {getAddresses, addAddresses, getRoute, addRoute} from '../actions/routeActions';
+import {serverGetRoute, serverGetAddresses} from '../api';
 
-export function* addRouteSaga(action) {
-	const result = yield call(serverGetRoute);
+export function* getAddressesSaga(action) {
+	const result = yield call(serverGetAddresses);
 	if(result) {
-		yield put(addRoute(result.addresses))
+		yield put(addAddresses(result.addresses))
 	}
 }
 
-export function* addCoordinatesSaga(action) {
-		const {startRoute, endRoute} = action.payload;
-		const result = yield call(serverGetAddress, startRoute, endRoute);
+export function* getRouteSaga(action) {
+		const result = yield call(serverGetRoute, action.payload);
 		if(result) {
-			yield put(addCoordinates(result))
+			yield put(addRoute(result))
 		}
 }
 
 export function* routeSaga() {
-	yield takeEvery(getRoute, addRouteSaga)
-	yield takeEvery(getAddress, addCoordinatesSaga)
+	yield takeEvery(getAddresses, getAddressesSaga)
+	yield takeEvery(getRoute, getRouteSaga)
 }
