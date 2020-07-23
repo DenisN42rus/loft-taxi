@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, act} from "@testing-library/react";
 import {ProfileWithAuth} from "../../components/Profile";
 import {PropTypes} from "prop-types";
 import {Provider} from 'react-redux';
@@ -50,7 +50,9 @@ describe("When clicked on submit button", () => {
      )
 		const submit = getByTestId("submit");
 		
-		fireEvent.click(submit)
+		act(() => {
+			fireEvent.click(submit)
+		});
 		expect(props.handleClick).toHaveBeenCalled();
 	})
 })

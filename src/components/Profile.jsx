@@ -22,15 +22,17 @@ export function Profile(props) {
 				cvc: localStorage.cvc})
 
 	const { cardNumber, expiryDate, cardName, cvc } = state;
+
 	useEffect(() => {
 		props.getCard()
-	})
+	}, [])
 
 	const handleClick = event => {
 		event.preventDefault();
 		
 		props.sendCard(state.cardNumber, state.expiryDate, state.cardName, state.cvc)
 	}
+	
 	const handleChange = event => {
     setState({...state, [event.target.name]: event.target.value });
   };

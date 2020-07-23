@@ -1,5 +1,5 @@
 import React from "react";
-import {LoginForm} from "./LoginForm";
+import {Login} from "./Login";
 import {SignUpForm} from "./SignUpForm";
 import {connect} from 'react-redux';
 import {PropTypes} from "prop-types";
@@ -12,7 +12,7 @@ export function Home(props) {
 		<>
 			<Switch>
 				<Route path='/LoginForm' render={() => (
-	          <LoginForm {...props}/>
+	          <Login {...props}/>
 	        )}/>
 				<Route path='/SignUpForm' render={() => (
 	          <SignUpForm {...props}/>

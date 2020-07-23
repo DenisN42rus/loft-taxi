@@ -5,7 +5,7 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 
-jest.mock('../../components/LoginForm', () => ({LoginForm: () => <div>LoginForm component</div>}))
+jest.mock('../../components/Login', () => ({Login: () => <div>Login component</div>}))
 jest.mock('../../components/SignUpForm', () => ({SignUpForm: () => <div>SignUpForm component</div>}))
 
 describe("Home", () => {

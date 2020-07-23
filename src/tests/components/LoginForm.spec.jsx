@@ -36,34 +36,3 @@ describe("LoginForm", () => {
 		expect(getByTestId('submit')).toBeInTheDocument()
 	})
 })
-
-describe("When clicked on submit button", () => {
-	it("should call 'authenticate'", () => {
-		const props = {
-			logIn: jest.fn(),
-			navigate: jest.fn(),
-			isLoggedIn: false,
-			authenticate: jest.fn()
-		}
-
-		const mockStore = {
-				getState: () => ({auth: {isLoggedIn: false}}),
-				subscribe: () => {},
-				dispatch: () => {}
-			}
-
-			const history = createMemoryHistory();
-
-			const {getByTestId} = render(
-				<Router history={history}>
-					<Provider store={mockStore}>
-						<LoginForm {...props}/>
-					</Provider>
-				</Router>
-			);
-		const submit = getByTestId("submit");
-		
-		fireEvent.click(submit)
-		expect(props.authenticate).toHaveBeenCalled();
-	})
-})
