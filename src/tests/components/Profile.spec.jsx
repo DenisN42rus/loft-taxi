@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, fireEvent, act} from "@testing-library/react";
+import {render, fireEvent, act, wait} from "@testing-library/react";
 import {ProfileWithAuth} from "../../components/Profile";
 import {PropTypes} from "prop-types";
 import {Provider} from 'react-redux';
@@ -38,12 +38,12 @@ describe("Profile", () => {
 })
 
 describe("When clicked on submit button", () => {
-	it("should call 'register'", () => {
+	it("should call 'register'", async () => {
 		const props = {
 			logIn: () => {},
 			navigate: () => {},
 			isLoggedIn: false,
-			handleClick: jest.fn()
+			sendCard: jest.fn()
 		}
 
 		 const mockStore = {
@@ -66,11 +66,11 @@ describe("When clicked on submit button", () => {
         <ProfileWithAuth {...props}/>
       </Provider>
      )
-		const submit = getByTestId("submit");
-		
-		act(() => {
+    const submit = getByTestId("submit");
+
+		await wait(() => {
 			fireEvent.click(submit)
 		});
-		expect(props.handleClick).toHaveBeenCalled();
+  		expect(props.sendCard).toHaveBeenCalled();
 	})
 })

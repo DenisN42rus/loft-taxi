@@ -19,21 +19,21 @@ describe("Home", () => {
 		props.isLoggedIn = false
 
 		const mockStore = {
-				getState: () => ({auth: {isLoggedIn: false}}),
+				getState: () => ({auth: {isLoggedIn: true}}),
 				subscribe: () => {},
 				dispatch: () => {}
 			}
 
-			const history = createMemoryHistory();
+		const history = createMemoryHistory();
 
-			const {container} = render(
-				<Router history={history}>
-					<Provider store={mockStore}>
-						<HomeWithAuth />
-					</Provider>
-				</Router>
-			);
-			
-		expect(container.innerHTML).toMatch("")
+		const {container, getByTestId} = render(
+			<Router history={history}>
+				<Provider store={mockStore}>
+					<HomeWithAuth />
+				</Provider>
+			</Router>
+		);
+
+		expect(getByTestId('form')).toBeInTheDocument()
 	})
 })

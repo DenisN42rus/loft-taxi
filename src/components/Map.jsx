@@ -46,7 +46,7 @@ export function Map(props) {
 	}, [props.route])
 
 	const drawRoute = (map, coordinates) => {
-		if(coordinates.length > 0) {
+		if(map && map.isStyleLoaded() && coordinates.length > 0) {
 		  map.flyTo({
 		    center: coordinates[0],
 		    zoom: 15
@@ -109,7 +109,7 @@ export function Map(props) {
 		<div data-testid="map-wrapper" className={styles.mapWrapper}>
 			<div data-testid="map" className={styles.map} ref={mapContainer}></div>
 		</div>
-		{localStorage.hasCard ? 
+		{localStorage.hasCard === "true" ? 
 			(	<>
 				{newOrder ? (
 					<>
