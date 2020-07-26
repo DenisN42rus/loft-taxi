@@ -11,6 +11,7 @@ import {
   InputLabel,
   Button,
   InputBase,
+  FormHelperText,
   Box
 } from '@material-ui/core';
 import styles from '../css/profile.module.css';
@@ -23,12 +24,41 @@ export function Profile(props) {
   	cvc: props.cvc
 	}
 
+	let isValidCardName = false;
+	let isValidCvc = false;
+
 	useEffect(() => {
 		props.getCard(props.token);
 	}, [])
 
 	const myInput = props => {
     return <InputBase {...props} name={props.field.name}/>
+  }
+
+  const validateCardNumber = value => {
+  	if(value.match(/[a-zA-Z]/)) {
+  		isValidCardName = true;
+			return "Может содержать только цифры"
+		} else if(value.length < 16) {
+			isValidCardName = true;
+			return "В номере карты 16 цифр"
+		} else {
+			isValidCardName = false;
+			return "";
+		}
+  }
+
+    const validateCvc = value => {
+  	if(value.match(/[a-zA-Z]/)) {
+  		isValidCvc = true;
+			return "Может содержать только цифры"
+		} else if(value.length < 3) {
+			isValidCvc = true;
+			return "В cvc карты 3 цифры"
+		} else {
+			isValidCvc = false;
+			return "";
+		}
   }
   
 	return (
@@ -52,6 +82,7 @@ export function Profile(props) {
 					  	cvc: card.cvc
 					  }}
 					  >{(props) => {
+					  	console.log(props.errors);
 					    return (
 			      	 <form data-testid="form" onSubmit={props.handleSubmit}>
 			        	 	<Grid container alignItems="center" justify="center">
@@ -60,7 +91,7 @@ export function Profile(props) {
 				          	 		<Grid item xs={6}>
 				          	 			<Paper elevation={3} className={styles.card}>
 					          	 			<Box className={styles.container}>
-					          	 				<FormControl fullWidth>
+					          	 				<FormControl fullWidth error={isValidCardName}>
 					          	 				  <InputLabel htmlFor="my-input" shrink>Номер карты</InputLabel>
 					          	 				  <Field 
 					          	 				  	fullWidth 
@@ -71,7 +102,9 @@ export function Profile(props) {
 					          	 				  	className={styles.input}
 					          	 				  	onChange={props.handleChange}
 					          	 				  	component={myInput}
+					          	 				  	validate={validateCardNumber}
 					          	 				  />
+					          	 				  <FormHelperText error>{props.errors.cardNumber}</FormHelperText>
 					          	 				</FormControl>
 					          	 				<FormControl fullWidth>
 					          	 				  <InputLabel htmlFor="my-input" shrink>Срок действия</InputLabel>
@@ -104,7 +137,7 @@ export function Profile(props) {
 					          	 				  	component={myInput}
 					          	 				  />
 					          	 				</FormControl>
-					          	 				<FormControl fullWidth>
+					          	 				<FormControl fullWidth error={isValidCvc}>
 					          	 				  <InputLabel htmlFor="my-input" shrink>CVC</InputLabel>
 					          	 				  <Field 
 					          	 				  	fullWidth 
@@ -115,7 +148,9 @@ export function Profile(props) {
 					          	 				  	className={styles.input}
 					          	 				  	onChange={props.handleChange}
 					          	 				  	component={myInput}
+					          	 				  	validate={validateCvc}
 					          	 				  />
+					          	 				  <FormHelperText error>{props.errors.cvc}</FormHelperText>
 					          	 				</FormControl>
 					          	 			</Box>
 				          	 			</Paper>
