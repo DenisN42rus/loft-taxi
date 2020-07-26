@@ -99,6 +99,10 @@ export function Map(props) {
   	if (map.current.getLayer('route')) {
   		map.current.removeLayer('route');
   		map.current.removeSource('route');
+  		map.current.flyTo({
+		    center: [30.3056504, 59.9429126],
+		    zoom: 10
+		  });
   	}
   }
 

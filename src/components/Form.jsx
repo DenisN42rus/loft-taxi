@@ -29,7 +29,7 @@ export function Form(props) {
 		  >{(props) => {
 		    return (
 			    <form className="form" data-testid="form" onSubmit={props.handleSubmit}>
-		    		<Grid container spacing={2} fullWidth>
+		    		<Grid container spacing={2}>
 			      	<Grid item xs={12}>
 			      		<FormControl fullWidth>
 			      			<InputLabel htmlFor="email">Имя пользователя</InputLabel>

@@ -6,6 +6,7 @@ import {PropTypes} from "prop-types";
 import {Route, Switch, withRouter} from 'react-router-dom';
 import {authenticate} from '../actions/authActions';
 import {register} from '../actions/registerAction';
+import {getCard} from '../actions/cardActions';
 
 export function Home(props) {
 	return (
@@ -28,6 +29,6 @@ Home.propTypes = {
   }
 
 export const HomeWithAuth = withRouter(connect(
-	(state) => ({isLoggedIn: state.auth.isLoggedIn}),
-	{authenticate, register}
+	(state) => ({isLoggedIn: state.auth.isLoggedIn, token: state.auth.token}),
+	{authenticate, register, getCard}
 )(Home));

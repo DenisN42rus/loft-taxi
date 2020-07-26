@@ -23,10 +23,10 @@ export function Header(props) {
           <nav>
             <ul>
               <li>
-                <Link to="/Map">Карта</Link>
+                <Link className={styles.link} to="/Map">Карта</Link>
               </li>
               <li>
-                <Link to="/Profile">Профиль</Link>
+                <Link className={styles.link} to="/Profile">Профиль</Link>
               </li>
               <li>
                 <button

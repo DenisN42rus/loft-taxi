@@ -9,7 +9,10 @@ import styled, { keyframes } from "styled-components";
 export function Login(props) {
 	
   useEffect(() => {
-    if(props.isLoggedIn) props.history.replace("Map");
+    if(props.isLoggedIn) {
+      props.getCard(props.token)
+      props.history.replace("Map");
+    }
   }, [props.isLoggedIn, props.history]);
 
   const FadeInLeft = styled.div`
