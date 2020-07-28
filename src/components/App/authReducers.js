@@ -1,4 +1,4 @@
-import {logIn, logOut} from "../actions/authActions";
+import {logIn, logOut} from "./authActions";
 
 let key = localStorage.getItem('isLoggedIn');
 
@@ -9,7 +9,8 @@ if(key === "false") {
 }
 
 export const initialState = {
-	isLoggedIn: key
+	isLoggedIn: key,
+	token: ""
 }
 
 export default function (state = initialState, action) {

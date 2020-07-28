@@ -1,5 +1,8 @@
 import React from 'react';
 import {Formik, Field} from 'formik';
+import {connect} from 'react-redux';
+import {authenticate} from '../App/authActions';
+import {register} from '../SignUp';
 import { 
   Grid, 
   FormControl,
@@ -9,7 +12,6 @@ import {
 } from '@material-ui/core';
 
 export function Form(props) {
-
 	const myInput = props => {
     return <Input {...props} name={props.field.name}/>
   }
@@ -39,6 +41,7 @@ export function Form(props) {
 			      				name="email"
 			      				type="email"
 			      				data-testid="email"
+			      				placeholder="Имя пользователя"
 			      				value={props.values.name}
 			      				className="offsetBottom"
 			      				onChange={props.handleChange}
@@ -114,3 +117,8 @@ export function Form(props) {
 		</Formik>
 	)
 }
+
+export const FormWithConnect = connect(
+  null,
+  {register, authenticate}
+)(Form);

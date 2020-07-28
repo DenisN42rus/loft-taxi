@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from "prop-types";
-import {sendCard, getCard} from '../actions/cardActions';
+import {sendCard, getCard} from './cardActions';
 import {Formik, Field} from 'formik';
 import { 
   Paper, 
@@ -14,7 +14,7 @@ import {
   FormHelperText,
   Box
 } from '@material-ui/core';
-import styles from '../css/profile.module.css';
+import styles from './profile.module.css';
 
 export function Profile(props) {
 	const card = {
@@ -48,7 +48,7 @@ export function Profile(props) {
 		}
   }
 
-    const validateCvc = value => {
+  const validateCvc = value => {
   	if(value.match(/[a-zA-Z]/)) {
   		isValidCvc = true;
 			return "Может содержать только цифры"
@@ -82,7 +82,6 @@ export function Profile(props) {
 					  	cvc: card.cvc
 					  }}
 					  >{(props) => {
-					  	console.log(props.errors);
 					    return (
 			      	 <form data-testid="form" onSubmit={props.handleSubmit}>
 			        	 	<Grid container alignItems="center" justify="center">

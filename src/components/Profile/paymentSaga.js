@@ -1,6 +1,6 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {sendCard, getCard, addCard} from '../actions/cardActions';
-import {serverAddCard, serverGetCard} from '../api';
+import {sendCard, getCard, addCard} from './cardActions';
+import {serverAddCard, serverGetCard} from '../../utils/api';
 
 export function* sendCardSaga(action) {
 	const result = yield call(serverAddCard, action.payload);

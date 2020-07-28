@@ -1,7 +1,7 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {logIn} from '../actions/authActions';
-import {register} from '../actions/registerAction';
-import {serverRegister} from '../api';
+import {logIn} from '../App';
+import {register} from './registerAction';
+import {serverRegister} from '../../utils/api';
 
 export function* registerSaga(action) {
 	const result = yield call(serverRegister, action.payload)

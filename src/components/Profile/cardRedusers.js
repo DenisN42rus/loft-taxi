@@ -1,4 +1,4 @@
-import {addCard} from "../actions/cardActions";
+import {addCard} from "./cardActions";
 
 export const initialState = {
 	cardNumber: "", 

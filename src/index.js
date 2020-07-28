@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import {AppWithConnect} from './components/App';
 import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import {BrowserRouter} from 'react-router-dom';
@@ -13,7 +13,7 @@ ReactDOM.render(
 		<Provider store={store}>
 		  <BrowserRouter>
 			  <React.StrictMode>
-				    <App />
+				    <AppWithConnect />
 			  </React.StrictMode>
 		  </BrowserRouter>
 	  </Provider>

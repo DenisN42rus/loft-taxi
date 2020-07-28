@@ -1,4 +1,4 @@
-import {addAddresses, addRoute} from '../actions/routeActions';
+import {addAddresses, addRoute} from './routeActions';
 
 export const initialState = {
 	addresses: [],

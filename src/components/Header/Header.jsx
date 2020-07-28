@@ -3,8 +3,8 @@ import {PropTypes} from "prop-types";
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {logOut} from '../actions/authActions';
-import styles from "../css/header.module.css"
+import {logOut} from '../App/authActions';
+import styles from "./header.module.css"
 
 export function Header(props) {
 

@@ -1,6 +1,6 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {getAddresses, addAddresses, getRoute, addRoute} from '../actions/routeActions';
-import {serverGetRoute, serverGetAddresses} from '../api';
+import {getAddresses, addAddresses, getRoute, addRoute} from './routeActions';
+import {serverGetRoute, serverGetAddresses} from '../../utils/api';
 
 export function* getAddressesSaga(action) {
 	const result = yield call(serverGetAddresses);

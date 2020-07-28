@@ -1,16 +1,17 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {PropTypes} from "prop-types";
 import {Link} from 'react-router-dom';
-import {Form} from './Form';
+import {FormWithConnect} from '../Form';
 import { Paper, Grid, Typography} from '@material-ui/core';
 import { fadeInLeft } from 'react-animations';
 import styled, { keyframes } from "styled-components";
+import {connect} from 'react-redux';
 
-export function SignUpForm(props) {
+export function SignUp(props) {
   
-  useEffect(() => {
-    if(props.isLoggedIn) props.history.replace("Map");
-  }, [props.isLoggedIn, props.history])
+  if(props.isLoggedIn) {
+    props.history.replace('Map')
+  }
 
   const FadeInLeft = styled.div`
     animation: .5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both 0.3s ${keyframes`${fadeInLeft}`};
@@ -37,9 +38,7 @@ export function SignUpForm(props) {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Form 
-                  register={props.register} component="signUp"
-                />
+                <FormWithConnect component="signUp"/>
               </Grid>
             </Grid>
         </Paper>
@@ -48,7 +47,10 @@ export function SignUpForm(props) {
   );
 }
 
-SignUpForm.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-    register: PropTypes.func.isRequired
+SignUp.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired
   }
+
+export const SignUpWithConnect = connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn})
+)(SignUp);

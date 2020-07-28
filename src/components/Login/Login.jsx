@@ -1,19 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {PropTypes} from "prop-types";
 import {Link} from 'react-router-dom';
-import {Form} from './Form';
+import {FormWithConnect} from '../Form';
 import {Paper, Grid, Typography} from '@material-ui/core';
 import { fadeInLeft } from 'react-animations';
+import {getCard} from '../Profile';
 import styled, { keyframes } from "styled-components";
+import {connect} from 'react-redux';
 
 export function Login(props) {
-	
-  useEffect(() => {
-    if(props.isLoggedIn) {
-      props.getCard(props.token)
-      props.history.replace("Map");
-    }
-  }, [props.isLoggedIn, props.history]);
+
+  if(props.isLoggedIn) {
+    props.getCard(props.token);
+    props.history.replace('Map')
+  }
 
   const FadeInLeft = styled.div`
     animation: .5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both 0.3s ${keyframes`${fadeInLeft}`};
@@ -40,9 +40,7 @@ export function Login(props) {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Form 
-                  authenticate={props.authenticate}
-                />
+                <FormWithConnect/>
               </Grid>
             </Grid>
         </Paper>
@@ -53,5 +51,9 @@ export function Login(props) {
 
 Login.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    authenticate: PropTypes.func.isRequired
   }
+
+export const LoginWithConnect = connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn, token: state.auth.token}),
+  {getCard}
+)(Login);
