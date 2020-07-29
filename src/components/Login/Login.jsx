@@ -12,7 +12,7 @@ export function Login(props) {
 
   if(props.isLoggedIn) {
     props.getCard(props.token);
-    props.history.replace('Map')
+    props.history.replace('Map');
   }
 
   const FadeInLeft = styled.div`

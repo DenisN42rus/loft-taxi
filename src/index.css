@@ -9,6 +9,10 @@ html, body, #root {
 	width: 100%;
 }
 
+#root {
+
+}
+
 body {
 	background-image: url('https://pensive-gates-d31754.netlify.app/assets/login-background.jpg');
 }
@@ -48,4 +52,13 @@ ul {
 
 .form {
 	width: 100%;
+}
+
+.mapboxgl-ctrl-attrib-inner {
+	display: none !important;
+}
+
+.MuiMenu-list {
+	width: 100%;
+	flex-direction: column;
 }

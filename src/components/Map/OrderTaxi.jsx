@@ -9,8 +9,10 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  TextField
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import styles from './map.module.css';
 
 export function OrderTaxi(props) {
@@ -85,6 +87,12 @@ export function OrderTaxi(props) {
 	};
 
   const { startRoute, endRoute } = route;
+  const useStyles = makeStyles({
+  	root: {
+  		
+  	}
+  });
+  const classes = useStyles();
 
 	return (
 		<>
@@ -96,11 +104,12 @@ export function OrderTaxi(props) {
 						<FormControl fullWidth className="offsetBottom">
 			        <InputLabel id="startRoute-label">Откуда</InputLabel>
 			        <Select
+			        	select
+			        	classes={{root: classes.root, children: classes.children}}
 			          labelId="startRoute-label"
 			          id="startRoute"
 			          name="startRoute"
 			          value={startRoute}
-			          fullWidth
 			          onChange={handleChange}
 			        	>
 			        	{props.addresses ? (

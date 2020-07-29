@@ -2,20 +2,6 @@
 	background-color: #fff !important;
 }
 
-.button {
-	border: none;
-	background: #fff;
-	border-radius: 5px;
-	outline: none;
-}
-
 .logo {
 	flex-grow: 1;
-}
-
-.link {
-	padding: 6px 8px;
-	color: #000;
-	text-decoration: none;
-	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }

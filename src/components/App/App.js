@@ -15,8 +15,8 @@ export function App(props) {
       <Route path="/LoginForm" component={LoginWithConnect} />
       <Route path="/SignUpForm" component={SignUpWithConnect} />
       <PrivateRoute component={HeaderWithConnect} />
-      <PrivateRoute exac path="/Map" component={Map} />
-      <PrivateRoute exac path="/Profile" component={ProfileWithAuth} />
+      <PrivateRoute path="/Map" component={Map} />
+      <PrivateRoute path="/Profile" component={ProfileWithAuth} />
     </>
   )
 }

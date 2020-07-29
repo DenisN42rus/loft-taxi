@@ -18,7 +18,7 @@ export function Map(props) {
 
 		map.current = new mapbox.Map({
 			container: mapContainer.current,
-			style: "mapbox://styles/mapbox/streets-v9",
+			style: "mapbox://styles/mapbox/streets-v11",
 			center: [30.3056504, 59.9429126],
 			zoom: 10
 		})
