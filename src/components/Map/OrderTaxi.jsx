@@ -86,12 +86,6 @@ export function OrderTaxi(props) {
 	};
 
   const { startRoute, endRoute } = route;
-  const useStyles = makeStyles({
-  	root: {
-  		
-  	}
-  });
-  const classes = useStyles();
 
 	return (
 		<>
@@ -103,7 +97,6 @@ export function OrderTaxi(props) {
 						<FormControl fullWidth className="offsetBottom">
 			        <InputLabel id="startRoute-label">Откуда</InputLabel>
 			        <Select
-			        	classes={{root: classes.root, children: classes.children}}
 			          labelId="startRoute-label"
 			          id="startRoute"
 			          name="startRoute"

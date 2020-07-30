@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import mapbox from 'mapbox-gl';
 import {OrderTaxiWithConnect} from './OrderTaxi';
+import {Link} from 'react-router-dom';
 import { 
   Paper, 
   Grid, 
@@ -28,10 +29,6 @@ export function Map(props) {
 		};
 	}, []);
 
-	const handleClick = () => {
-		props.history.replace("Profile")
-	}
-
 	return (
 		<>
 		<div data-testid="map-wrapper" className={styles.mapWrapper}>
@@ -55,10 +52,11 @@ export function Map(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<Button 
+								component={Link}
+                to="/Profile"
 							  variant="contained" 
 							  color="primary"
 							  fullWidth
-							  onClick={handleClick}
 							>
 							  Перейти в профиль
 							</Button>

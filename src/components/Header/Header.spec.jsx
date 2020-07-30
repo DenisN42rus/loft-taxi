@@ -23,27 +23,6 @@ describe("Header", () => {
 	})
 })
 
-// describe("When clicked on navigation buttons", () => {
-// 	it("opens corresponding page", () => {
-// 		const props = {
-// 					navigate: jest.fn(),
-// 					logOut: () => {}
-// 				};
-// 		const history = createMemoryHistory();
-		
-// 			const {getByText, container} = render(
-// 				<Router history={history}>
-// 						<Header />
-// 				</Router>
-// 			);
-// 		const mapBtn = getByText("Карта");
-// 		const profileBtn = getByText("Профиль");
-
-// 		fireEvent.click(mapBtn)
-// 		expect(container.innerHTML).toMatch("Map component")
-// 	})
-// })
-
 describe("When clicked on logOut button", () => {
 	const props = {
 		navigate: () => {},
