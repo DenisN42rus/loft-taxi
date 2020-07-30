@@ -1,9 +1,11 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {SignUpForm} from "../../components/SignUpForm";
+import {SignUp} from "./SignUp";
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
+
+jest.mock('../Map', () => ({Map: () => <div>Map component</div>}))
 
 describe("SignUpForm", () => {
 	it("renders correctly", () => {
@@ -25,7 +27,7 @@ describe("SignUpForm", () => {
 			const {getByTestId} = render(
 				<Router history={history}>
 					<Provider store={mockStore}>
-						<SignUpForm {...props}/>
+						<SignUp {...props}/>
 					</Provider>
 				</Router>
 			);

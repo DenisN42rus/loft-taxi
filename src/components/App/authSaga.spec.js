@@ -1,8 +1,8 @@
-import {recordSaga} from './recordSaga';
-import {authenticateSaga} from '../../sagas/authSaga';
-import {authenticate} from '../../actions/authActions';
+import {recordSaga} from '../../utils/recordSaga';
+import {authenticateSaga} from './authSaga';
+import {authenticate} from './authActions';
 
-jest.mock("../../api", () => ({serverLogin: jest.fn(() => ({success: true}))}));
+jest.mock("../../utils/api", () => ({serverLogin: jest.fn(() => ({success: true}))}));
 
 describe("authSaga", () => {
 	describe("AUTHENTICATE", () => {

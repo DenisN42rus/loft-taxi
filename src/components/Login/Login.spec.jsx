@@ -1,9 +1,11 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {Login} from "../../components/Login";
+import {Login} from "./Login";
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
+
+jest.mock('../Map', () => ({Map: () => <div>Map component</div>}))
 
 describe("Login", () => {
 	it("renders correctly", () => {

@@ -1,6 +1,6 @@
-import {initialState} from '../../reducers/cardRedusers';
-import reducer from '../../reducers/cardRedusers';
-import {addCard} from "../../actions/cardActions";
+import {initialState} from './cardRedusers';
+import reducer from './cardRedusers';
+import {addCard} from "./cardActions";
 
 describe('card reducer', () => { 
   it('ADD_CARD', () => { 

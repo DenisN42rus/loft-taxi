@@ -1,32 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 import {PropTypes} from "prop-types";
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {logOut} from '../App/authActions';
+import {Link} from 'react-router-dom';
 import { 
   Button
 } from '@material-ui/core';
 import styles from "./header.module.css"
 
 export function Header(props) {
-  const [page, setPage] = useState("Map")
 
 	const unauthenticate = () => {
     localStorage.isLoggedIn = false;
 		props.logOut();
 	}
-
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    if(page === "Map") {
-      props.history.replace("Profile");
-      setPage("Profile");
-    } else {
-      props.history.replace("Map");
-      setPage("Map");
-    }
-  }
 
 	return (
     <>
@@ -38,21 +26,19 @@ export function Header(props) {
           <nav>
             <ul>
               <li>
-                <Button 
-                  component="a" 
-                  href="/Map"
-                  onClick={handleClick}
-                  >
-                  Карта
+                <Button
+                  component={Link}
+                  to="/Map"
+                >
+                Карта
                 </Button>
               </li>
               <li>
-                <Button 
-                  component="a" 
-                  href="/Profile"
-                  onClick={handleClick}
-                  >
-                  Профиль
+                <Button
+                  component={Link}
+                  to="/Profile"
+                >
+                Профиль
                 </Button>
               </li>
               <li>

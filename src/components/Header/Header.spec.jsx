@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, fireEvent} from "@testing-library/react";
-import {Header} from "../../components/Header";
+import {Header} from "./Header";
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 
@@ -41,8 +41,6 @@ describe("Header", () => {
 
 // 		fireEvent.click(mapBtn)
 // 		expect(container.innerHTML).toMatch("Map component")
-// 		fireEvent.click(profileBtn)
-// 		expect(container.innerHTML).toMatch("Profile component")
 // 	})
 // })
 

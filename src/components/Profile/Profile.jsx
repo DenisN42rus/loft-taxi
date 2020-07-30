@@ -25,9 +25,6 @@ export function Profile(props) {
   	cvc: props.cvc
 	}
 
-	let isValidCardName = false;
-	let isValidCvc = false;
-
 	useEffect(() => {
 		props.getCard(props.token);
 	}, [])
@@ -99,7 +96,7 @@ export function Profile(props) {
 				          	 		<Grid item xs={6}>
 				          	 			<Paper elevation={3} className={styles.card}>
 					          	 			<Box className={styles.container}>
-					          	 				<FormControl fullWidth error={props.errors.cardNumber}>
+					          	 				<FormControl fullWidth error={!!props.errors.cardNumber}>
 					          	 				  <InputLabel htmlFor="my-input" shrink>Номер карты</InputLabel>
 					          	 				   <Field
 												          fullWidth 

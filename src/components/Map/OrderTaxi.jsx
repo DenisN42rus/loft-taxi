@@ -9,8 +9,7 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem,
-  TextField
+  MenuItem
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './map.module.css';
@@ -104,7 +103,6 @@ export function OrderTaxi(props) {
 						<FormControl fullWidth className="offsetBottom">
 			        <InputLabel id="startRoute-label">Откуда</InputLabel>
 			        <Select
-			        	select
 			        	classes={{root: classes.root, children: classes.children}}
 			          labelId="startRoute-label"
 			          id="startRoute"

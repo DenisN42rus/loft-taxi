@@ -1,4 +1,4 @@
-import {serverLogin, serverAddCard, serverGetCard, serverGetRoute, serverGetAddresses} from "../api";
+import {serverLogin, serverAddCard, serverGetCard, serverGetRoute, serverGetAddresses} from "./api";
 
 describe("serverLogin", () => {
 	it("return success", async () => {

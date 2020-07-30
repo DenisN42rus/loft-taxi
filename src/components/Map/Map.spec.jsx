@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from "@testing-library/react";
-import {MapWithConnect} from "../../components/Map";
+import {Map} from "./Map";
 import {Provider} from 'react-redux';
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
@@ -25,7 +25,7 @@ describe("Map", () => {
 
 		const {getByTestId} = render(
       <Provider store={mockStore}>
-        <MapWithConnect />
+        <Map />
       </Provider>
     )
 

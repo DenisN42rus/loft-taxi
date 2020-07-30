@@ -1,8 +1,8 @@
-import {recordSaga} from './recordSaga';
-import {getCardSaga} from '../../sagas/paymentSaga';
-import {addCard} from '../../actions/cardActions';
+import {recordSaga} from '../../utils/recordSaga';
+import {getCardSaga} from './paymentSaga';
+import {addCard} from './cardActions';
 
-jest.mock("../../api", () => ({serverGetCard: jest.fn(() => true)}));
+jest.mock("../../utils/api", () => ({serverGetCard: jest.fn(() => true)}));
 
 describe("getCardSaga", () => {
 	describe("ADD_CARD", () => {

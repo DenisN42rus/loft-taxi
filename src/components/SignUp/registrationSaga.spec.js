@@ -1,8 +1,9 @@
-import {recordSaga} from './recordSaga';
-import {registerSaga} from '../../sagas/registrationSaga';
-import {register} from '../../actions/registerAction';
+import {recordSaga} from '../../utils/recordSaga';
+import {registerSaga} from './registrationSaga';
+import {register} from './registerAction';
 
-jest.mock("../../api", () => ({serverRegister: jest.fn(() => ({success: true}))}));
+jest.mock("../../utils/api", () => ({serverRegister: jest.fn(() => ({success: true}))}));
+jest.mock('../Map', () => ({Map: () => <div>Map component</div>}))
 
 describe("registrationSaga", () => {
 	describe("REGISTER", () => {

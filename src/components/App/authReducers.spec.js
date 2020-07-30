@@ -1,6 +1,6 @@
-import {initialState} from '../../reducers/authReducers';
-import reducer from '../../reducers/authReducers';
-import {logIn, logOut} from "../../actions/authActions";
+import {initialState} from './authReducers';
+import reducer from './authReducers';
+import {logIn, logOut} from "./authActions";
 
 describe('auth reducers', () => { 
   it('LOG_IN', () => { 

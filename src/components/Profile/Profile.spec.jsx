@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, fireEvent, act, wait} from "@testing-library/react";
-import {ProfileWithAuth} from "../../components/Profile";
+import {ProfileWithAuth} from "./Profile";
 import {PropTypes} from "prop-types";
 import {Provider} from 'react-redux';
 
@@ -12,19 +12,19 @@ describe("Profile", () => {
 	}
 
 	 const mockStore = {
-        getState: () => ({
-        	card: 
-        	{
-        		cardNumber: "cardNumber", 
-        		expiryDate: "expiryDate", 
-        		cardName: "cardName", 
-        		cvc: "cvc"
-        	},
-        	auth: {token: "token"}
-        }),
-        subscribe: () => {},
-        dispatch: () => {}
-      }
+    getState: () => ({
+    	card: 
+    	{
+    		cardNumber: "cardNumber", 
+    		expiryDate: "expiryDate", 
+    		cardName: "cardName", 
+    		cvc: "cvc"
+    	},
+    	auth: {token: "token"}
+    }),
+    subscribe: () => {},
+    dispatch: () => {}
+  }
 
 	it("renders correctly", () => {
 		const {getByTestId} = render(
@@ -38,39 +38,37 @@ describe("Profile", () => {
 })
 
 describe("When clicked on submit button", () => {
-	it("should call 'register'", async () => {
+	it("should call 'register'", () => {
 		const props = {
 			logIn: () => {},
 			navigate: () => {},
 			isLoggedIn: false,
-			sendCard: jest.fn()
+			sendCard: jest.fn(() => true)
 		}
 
-		 const mockStore = {
-        getState: () => ({
-        	card: 
-        	{
-        		cardNumber: "cardNumber", 
-        		expiryDate: "expiryDate", 
-        		cardName: "cardName", 
-        		cvc: "cvc"
-        	},
-        	auth: {token: "token"}
-        }),
-        subscribe: () => {},
-        dispatch: () => {}
-      }
+		const mockStore = {
+      getState: () => ({
+      	card: 
+      	{
+      		cardNumber: "cardNumber", 
+      		expiryDate: "expiryDate", 
+      		cardName: "cardName", 
+      		cvc: "cvc"
+      	},
+      	auth: {token: "token"}
+      }),
+      subscribe: () => {},
+      dispatch: () => {}
+    }
 
 		const {getByTestId} = render(
 			<Provider store={mockStore}>
         <ProfileWithAuth {...props}/>
       </Provider>
      )
-    const submit = getByTestId("submit");
-
-		await wait(() => {
-			fireEvent.click(submit)
-		});
-  		expect(props.sendCard).toHaveBeenCalled();
+    const form = getByTestId("form");
+    
+		fireEvent.submit(form)
+		expect(props.sendCard()).toBe(true);
 	})
 })
