@@ -2,6 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import mapbox from 'mapbox-gl';
 import {OrderTaxiWithConnect} from './OrderTaxi';
 import {Link} from 'react-router-dom';
+import {getCard} from '../Profile';
+import {connect} from 'react-redux';
 import { 
   Paper, 
   Grid, 
@@ -29,12 +31,16 @@ export function Map(props) {
 		};
 	}, []);
 
+	useEffect(() => {
+		props.getCard(props.token);
+	}, []);
+
 	return (
 		<>
 		<div data-testid="map-wrapper" className={styles.mapWrapper}>
 			<div data-testid="map" className={styles.map} ref={mapContainer}></div>
 		</div>
-		{localStorage.hasCard === "true" ? 
+		{props.hasCard ? 
 			(
 				<OrderTaxiWithConnect map={map}/>
 			) : (
@@ -68,3 +74,8 @@ export function Map(props) {
 		</>
 	)
 }
+
+export const MapWithConnect = connect(
+  (state) => ({hasCard: state.card.hasCard}),
+  {getCard}
+)(Map);

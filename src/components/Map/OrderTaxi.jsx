@@ -11,7 +11,6 @@ import {
   Select,
   MenuItem
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import styles from './map.module.css';
 
 export function OrderTaxi(props) {

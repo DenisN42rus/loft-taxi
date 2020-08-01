@@ -4,7 +4,8 @@ export const initialState = {
 	cardNumber: "", 
 	expiryDate: "", 
 	cardName: "", 
-	cvc: ""
+	cvc: "",
+	hasCard: false
 }
 
 export default function (state = initialState, action) {

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from "prop-types";
 import {sendCard, getCard} from './cardActions';
@@ -16,8 +16,10 @@ import {
 } from '@material-ui/core';
 import styles from './profile.module.css';
 import InputMask from 'react-input-mask';
+import {Link} from 'react-router-dom';
 
 export function Profile(props) {
+	const [showForm, setShowForm] = useState(false)
 	const card = {
 		cardNumber: props.cardNumber, 
   	expiryDate: props.expiryDate, 
@@ -27,7 +29,7 @@ export function Profile(props) {
 
 	useEffect(() => {
 		props.getCard(props.token);
-	}, [])
+	}, []);
 
 	const myInput = props => {
     return <TextField {...props} name={props.field.name}/>
@@ -75,111 +77,132 @@ export function Profile(props) {
 	      	 	Профиль
 	      	 </Typography>
 	      	 <Typography align="center" className="offsetBottom">
-	      	 	Способ оплаты
+	      	 	Срокпособ оплаты
 	      	 </Typography>
-	      	 <Formik 
-						onSubmit={value => {
-							props.sendCard(value.cardNumber, value.expiryDate, value.cardName, value.cvc, props.token)
-						}}
-					  initialValues={{
-					  	cardNumber: card.cardNumber, 
-					  	expiryDate: card.expiryDate, 
-					  	cardName: card.cardName, 
-					  	cvc: card.cvc
-					  }}
-					  >{(props) => {
-					    return (
-			      	 <form data-testid="form" onSubmit={props.handleSubmit}>
-			        	 	<Grid container alignItems="center" justify="center">
-			        	 		<Grid item xs={12}>
-			        	 			<Grid container spacing={4} alignItems="center" justify="center">
-				          	 		<Grid item xs={6}>
-				          	 			<Paper elevation={3} className={styles.card}>
-					          	 			<Box className={styles.container}>
-					          	 				<FormControl fullWidth error={!!props.errors.cardNumber}>
-					          	 				  <InputLabel htmlFor="my-input" shrink>Номер карты</InputLabel>
-					          	 				   <Field
-												          fullWidth 
-												          name="cardNumber"
-												          value={props.values.cardNumber}
-												          placeholder="0000 0000 0000 0000"
-												          required
-												          className={styles.input}
-												          onChange={props.handleChange}
-												          component={InputCardNumber}
-												          validate={validateCardNumber}
-												        />
-					          	 				  <FormHelperText error>{props.errors.cardNumber}</FormHelperText>
-					          	 				</FormControl>
-					          	 				<FormControl fullWidth error={props.errors.expiryDate}>
-					          	 				  <InputLabel htmlFor="my-input" shrink>Срок действия</InputLabel>
-					          	 				  <Field 
-					          	 				  	fullWidth 
-					          	 				  	name="expiryDate" 
-					          	 				  	value={props.values.expiryDate}
-					          	 				  	required
-					          	 				  	className={styles.input}
-					          	 				  	onChange={props.handleChange}
-					          	 				  	component={InputExpiryDate}
-					          	 				  	validate={validateExpiryDate}
-					          	 				  />
-					          	 				  <FormHelperText error>{props.errors.expiryDate}</FormHelperText>
-					          	 				</FormControl>
-					          	 			</Box>
-				          	 			</Paper>
-					          	 	</Grid>
-					          	 	<Grid item xs={6}>
-				          	 			<Paper elevation={3} className={styles.card}>
-					          	 			<Box className={styles.container}>
-					          	 				<FormControl fullWidth>
-					          	 				  <InputLabel htmlFor="my-input" shrink>Имя владельца</InputLabel>
-					          	 				  <Field 
-					          	 				  	fullWidth 
-					          	 				  	name="cardName" 
-					          	 				  	placeholder="USER NAME"
-					          	 				  	value={props.values.cardName}
-					          	 				  	required
-					          	 				  	className={styles.input}
-					          	 				  	onChange={props.handleChange}
-					          	 				  	component={myInput}
-					          	 				  />
-					          	 				</FormControl>
-					          	 				<FormControl fullWidth error={props.errors.cvc}>
-					          	 				  <InputLabel htmlFor="my-input" shrink>CVC</InputLabel>
-					          	 				  <Field 
-					          	 				  	fullWidth 
-					          	 				  	name="cvc" 
-					          	 				  	value={props.values.cvc}
-					          	 				  	placeholder="cvc"
-					          	 				  	required
-					          	 				  	className={styles.input}
-					          	 				  	onChange={props.handleChange}
-					          	 				  	component={myInput}
-					          	 				  	validate={validateCvc}
-					          	 				  />
-					          	 				  <FormHelperText error>{props.errors.cvc}</FormHelperText>
-					          	 				</FormControl>
-					          	 			</Box>
-				          	 			</Paper>
+	      	 {showForm ? 
+	      	 	(<>
+	      	 		<Typography align="center" className="offsetBottom">
+			      		Платежные данные обновлены. Теперь вы можете заказывать такси. 
+			      	</Typography>
+			      	<Grid container justify="center">
+				      	<Button 
+					      	component={Link}
+	                to="/Map"
+				      	  variant="contained" 
+				      	  color="primary"
+				      	  className={styles.button}
+				      	>
+				      	  Перейти на карту
+				      	</Button>
+				      	</Grid>
+			      	</>
+	      	 	) : (
+		      	<Formik 
+							onSubmit={value => {
+								props.sendCard(value.cardNumber, value.expiryDate, value.cardName, value.cvc, props.token)
+								setShowForm(true)
+							}}
+						  initialValues={{
+						  	cardNumber: card.cardNumber, 
+						  	expiryDate: card.expiryDate, 
+						  	cardName: card.cardName, 
+						  	cvc: card.cvc
+						  }}
+						  >{(props) => {
+						    return (
+				      	 <form data-testid="form" onSubmit={props.handleSubmit}>
+				        	 	<Grid container alignItems="center" justify="center">
+				        	 		<Grid item xs={12}>
+				        	 			<Grid container spacing={4} alignItems="center" justify="center">
+					          	 		<Grid item xs={6}>
+					          	 			<Paper elevation={3} className={styles.card}>
+						          	 			<Box className={styles.container}>
+						          	 				<FormControl fullWidth error={!!props.errors.cardNumber}>
+						          	 				  <InputLabel htmlFor="my-input" shrink>Номер карты</InputLabel>
+						          	 				   <Field
+													          fullWidth 
+													          name="cardNumber"
+													          value={props.values.cardNumber}
+													          placeholder="0000 0000 0000 0000"
+													          required
+													          className={styles.input}
+													          onChange={props.handleChange}
+													          component={InputCardNumber}
+													          validate={validateCardNumber}
+													        />
+						          	 				  <FormHelperText error>{props.errors.cardNumber}</FormHelperText>
+						          	 				</FormControl>
+						          	 				<FormControl fullWidth error={props.errors.expiryDate}>
+						          	 				  <InputLabel htmlFor="my-input" shrink>Срок действия</InputLabel>
+						          	 				  <Field 
+						          	 				  	fullWidth 
+						          	 				  	name="expiryDate" 
+						          	 				  	value={props.values.expiryDate}
+						          	 				  	required
+						          	 				  	className={styles.input}
+						          	 				  	onChange={props.handleChange}
+						          	 				  	component={InputExpiryDate}
+						          	 				  	validate={validateExpiryDate}
+						          	 				  />
+						          	 				  <FormHelperText error>{props.errors.expiryDate}</FormHelperText>
+						          	 				</FormControl>
+						          	 			</Box>
+					          	 			</Paper>
+						          	 	</Grid>
+						          	 	<Grid item xs={6}>
+					          	 			<Paper elevation={3} className={styles.card}>
+						          	 			<Box className={styles.container}>
+						          	 				<FormControl fullWidth>
+						          	 				  <InputLabel htmlFor="my-input" shrink>Имя владельца</InputLabel>
+						          	 				  <Field 
+						          	 				  	fullWidth 
+						          	 				  	name="cardName" 
+						          	 				  	placeholder="USER NAME"
+						          	 				  	value={props.values.cardName}
+						          	 				  	required
+						          	 				  	className={styles.input}
+						          	 				  	onChange={props.handleChange}
+						          	 				  	component={myInput}
+						          	 				  />
+						          	 				</FormControl>
+						          	 				<FormControl fullWidth error={props.errors.cvc}>
+						          	 				  <InputLabel htmlFor="my-input" shrink>CVC</InputLabel>
+						          	 				  <Field 
+						          	 				  	fullWidth 
+						          	 				  	name="cvc" 
+						          	 				  	value={props.values.cvc}
+						          	 				  	placeholder="cvc"
+						          	 				  	required
+						          	 				  	className={styles.input}
+						          	 				  	onChange={props.handleChange}
+						          	 				  	component={myInput}
+						          	 				  	validate={validateCvc}
+						          	 				  />
+						          	 				  <FormHelperText error>{props.errors.cvc}</FormHelperText>
+						          	 				</FormControl>
+						          	 			</Box>
+					          	 			</Paper>
+						          	 	</Grid>
 					          	 	</Grid>
 				          	 	</Grid>
-			          	 	</Grid>
-			        	 	</Grid>
-				        	<Grid container justify="center">
-				        		<Button 
-				        		  variant="contained" 
-				        		  color="primary"
-				        		  data-testid="submit"
-				        		  type="submit"
-				        		  className={styles.button}
-				        		>
-				        		  Сохранить
-				        		</Button>
-			        	 </Grid>
-			      	 </form>
-					    )
-					  }}
-					</Formik>
+				        	 	</Grid>
+					        	<Grid container justify="center">
+					        		<Button 
+					        		  variant="contained" 
+					        		  color="primary"
+					        		  data-testid="submit"
+					        		  type="submit"
+					        		  className={styles.button}
+					        		>
+					        		  Сохранить
+					        		</Button>
+				        	 </Grid>
+				      	 </form>
+						    )
+						  }}
+						</Formik>
+						)
+					}
         </Paper>
       </Grid>
     </Grid>

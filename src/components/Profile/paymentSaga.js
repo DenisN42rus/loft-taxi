@@ -5,15 +5,15 @@ import {serverAddCard, serverGetCard} from '../../utils/api';
 export function* sendCardSaga(action) {
 	const result = yield call(serverAddCard, action.payload);
 	if(result) {
-		localStorage.hasCard = true;
+		action.payload.hasCard = true;
 		yield put(addCard(action.payload))
 	}
 }
 
 export function* getCardSaga(action) {
 	const result = yield call(serverGetCard, action.payload);
-	if(result) {
-		localStorage.hasCard = true;
+	if(result && !(result.success === false)) {
+		result.hasCard = true;
 		yield put(addCard(result))
 	}
 }
