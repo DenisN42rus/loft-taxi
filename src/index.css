@@ -1,0 +1,64 @@
+* {
+	box-sizing: border-box;
+}
+
+html, body, #root {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+#root {
+
+}
+
+body {
+	background-image: url('https://pensive-gates-d31754.netlify.app/assets/login-background.jpg');
+}
+
+nav {
+	display: block;
+	width: 100%;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	list-style: none;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.formContainer {
+	  padding: 44px 60px;
+    min-width: 500px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.offsetBottom {
+	margin-bottom: 30px !important;
+}
+
+.grid {
+	min-height: 100vh;
+}
+
+.logo {
+	width: 156px;
+}
+
+.form {
+	width: 100%;
+}
+
+.mapboxgl-ctrl-attrib-inner {
+	display: none !important;
+}
+
+.MuiMenu-list {
+	width: 100%;
+	flex-direction: column;
+}
