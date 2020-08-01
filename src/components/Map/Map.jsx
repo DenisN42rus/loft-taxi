@@ -76,6 +76,6 @@ export function Map(props) {
 }
 
 export const MapWithConnect = connect(
-  (state) => ({hasCard: state.card.hasCard}),
+  (state) => ({hasCard: state.card.hasCard, token: state.auth.token}),
   {getCard}
 )(Map);
